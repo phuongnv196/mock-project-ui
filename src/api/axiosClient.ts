@@ -15,7 +15,7 @@ const axiosClient = ():AxiosInstance => {
 
     let header = {
         'content-type': 'application/json',
-        'x-api-key': process.env.API_KEY
+        'x-api-key': process.env.API_KEY||""
     }
     if (!token) {
         return axios.create({
