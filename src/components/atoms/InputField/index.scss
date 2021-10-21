@@ -1,0 +1,16 @@
+.input-group-icon {
+  position: relative;
+  .input-icon{
+    position: absolute;
+    padding: 0.4rem 0.8rem;
+    background: #dadada;
+    border-radius: 0.25rem 0rem 0rem 0.25rem;
+    height: calc(100% - 2px);
+    top: 1px;
+    left: 1px;
+  }
+  .form-control-icon {
+    padding-left: 3rem;
+  }
+}
+
