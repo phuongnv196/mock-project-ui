@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { useLocation } from 'react-router';
 import DefaultLayout from "../../templates/DefaultLayout";
 import {RootState} from "../../../app/store";
+import SignInForm from "components/molecules/SignInForm";
+import SignUpForm from "components/molecules/SignUpForm";
 
 const Home = () => {
     // let history = useHistory();
@@ -21,7 +23,9 @@ const Home = () => {
             <div>Home</div>
         );
     } else {
-        return <div>Login</div>
+        return (
+            <SignUpForm></SignUpForm>
+        )
     }
 
 }

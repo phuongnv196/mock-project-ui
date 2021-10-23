@@ -1,27 +1,79 @@
+import { useState } from 'react';
+
 const SignUpForm = () => {
+
+    const [inputPhoneNumber, setPhoneNumber] = useState(''); 
+    const [inputName, setName] = useState(''); 
+    const [inputLogo, setLogo] = useState(''); 
+    const [inputIsShop, setIsShop] = useState(''); 
+
+    const handleChangePhoneNumber = (e: any) => {
+        setPhoneNumber(e.target.value);
+    }
+    const handleChangeName = (e: any) => {
+        setName(e.target.value);
+    }
+    const handleChangeLogo = (e: any) => {
+        setLogo(e.target.files[0]);
+    }
+    const handleChangeIsShop = (e: any) => {
+        setIsShop(e.target.checked);
+    }
+
+    const handleClickSignUp = () => {
+        alert(inputPhoneNumber + '---' + inputName + '---' + inputIsShop);
+    }
+
     return (
-        <div className="sign-up-form">
-            <div className="group">
-                <label htmlFor="user" className="label">Username</label>
-                <input id="user" type="text" className="input" placeholder="Create your Username"/></div>
-            <div className="group"><label htmlFor="pass" className="label">Password</label>
-                <input id="pass" type="password" className="input" placeholder="Create your password"/>
+        <main className="d-flex w-100 h-100">
+            <div className="container d-flex flex-column">
+                <div className="row vh-100">
+                    <div className="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+                        <div className="d-table-cell align-middle">
+
+                            <div className="text-center mt-4">
+                                <h1 className="h2">Get started</h1>
+                                <p className="lead">
+                                    Start creating the best possible user experience for you customers.
+                                </p>
+                            </div>
+
+                            <div className="card">
+                                <div className="card-body">
+                                    <div className="m-sm-4">
+                                        <form>
+                                        <div className="mb-3">
+                                                <label className="form-label">Phone Number</label>
+                                                <input value={inputPhoneNumber} onChange={handleChangePhoneNumber} className="form-control form-control-lg" type="text" name="phonenumber" placeholder="Enter your phone number" />
+                                            </div>
+                                            <div className="mb-3">
+                                                <label className="form-label">Name</label>
+                                                <input value={inputName} onChange={handleChangeName} className="form-control form-control-lg" type="text" name="name" placeholder="Enter your name" />
+                                            </div>
+                                            <div className="mb-3">
+                                                <label className="form-label">Avatar/Logo</label>
+                                                <input onChange={handleChangeLogo} className="form-control form-control-lg" type="file" name="avatar-logo" placeholder="Enter your Avatar/Logo" />
+                                            </div>
+                                            <div>
+                                                <label className="form-check">
+                                                    <input value={inputIsShop} onChange={handleChangeIsShop} className="form-check-input" type="checkbox" name="is-shop"/>
+                                                    <span className="form-check-label">
+                                                        Please check if you are a shop?
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div className="text-center mt-3">
+                                                <button onClick={handleClickSignUp} className="btn btn-lg btn-primary">Sign up</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="group">
-                <label htmlFor="pass" className="label">Repeat Password</label>
-                <input id="pass" type="password" className="input" placeholder="Repeat your password"/>
-            </div>
-            <div className="group"><label htmlFor="pass" className="label">Email Address</label>
-                <input id="pass" type="text" className="input" placeholder="Enter your email address"/>
-            </div>
-            <div className="group">
-                <input type="submit" className="button" value="Sign Up"/>
-            </div>
-            <div className="hr"/>
-            <div className="foot">
-                <label htmlFor="tab-1">Already Member?</label>
-            </div>
-        </div>
+	    </main>
     )
 }
 
