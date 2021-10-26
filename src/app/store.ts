@@ -1,9 +1,12 @@
-import userReducer from '../redux/reducers/Auth/userSlice'
+import userReducer from '../redux/reducers/Auth/userSlice';
+import shopReducer from '../redux/reducers/Shop/shopSlice';
+
 import {combineReducers} from "redux";
 const { configureStore } = require("@reduxjs/toolkit");
 
 const rootReducer = combineReducers({
-        userReducer
+        userReducer,
+        shopReducer
     });
 
 const store = configureStore({

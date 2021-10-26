@@ -1,0 +1,19 @@
+.button-menu {
+    text-align: center;
+    padding: 5px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    opacity: 1;
+}
+
+.button-menu.active {
+    color: red;
+}
+
+.button-menu:hover {
+    opacity: 0.8;
+}
+

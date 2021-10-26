@@ -1,5 +1,6 @@
+import DefaultLayout from "components/templates/DefaultLayout";
 import React from "react";
 
-const About = () => <div>About</div>
+const About = () => <DefaultLayout>About</DefaultLayout>
 
 export default About

@@ -1,0 +1,57 @@
+import { RootState } from 'app/store';
+import ProductList from 'components/molecules/ProductList';
+import { ShopModel } from 'models/shop.model';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getShopById } from 'redux/reducers/Shop/shopSlice';
+import './index.scss';
+
+const ShopItem = (props: any) => {
+    const {shopData} = props;
+    const shopItem = shopData as ShopModel;
+    const shop = useSelector((state: RootState) => state.shopReducer);
+    
+    const [isShow, setIsShow] = useState(props.isShow);
+    const [isLoadedData, setIsLoadedData] = useState(false);
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(isShow) {
+            dispatch(getShopById(shopItem.shopId || ""));
+        }
+        console.log('shop:', shopItem.shopId, shop);
+    }, []);
+
+    const handleClickHeader = (): any => {
+        setIsShow(!isShow);
+        if(!shopItem.items && !isShow) {
+            dispatch(getShopById(shopItem.shopId || ""));
+            setIsLoadedData(true);
+        }
+    }
+
+    return (
+        <div className="col-12" style={{paddingLeft: "10px", paddingRight: "10px"}}>
+            <div className="card">
+                <div className="card-header" onClick={handleClickHeader}>
+                    <div>
+                        {shopItem.name}
+                    </div>
+                </div>
+                <div className={`collapse ${isShow ? 'show': 'hide'}`} aria-labelledby="headingOne" data-parent="#accordion" >
+                    <div className="card-body">
+                        {
+                            !shopItem.items || shopItem.items.length == 0?
+                            <div>Không có sản phẩm nào</div>
+                            : 
+                            <ProductList products={shopItem.items}/>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default ShopItem

@@ -1,0 +1,43 @@
+.color {
+    color: #15B7B9; //#ea4846
+    color: #10DDC2; //ef223d
+    color: #F5F5F5; //0a0a0a
+    color: #F57170; //0a8e8f
+}
+.mobile-layout {
+    .head-menu {
+        background-color: #15B7B9;
+        color: #0a0a0a;
+        padding: 10px 5px 5px 5px;
+        height: 35px;
+        width: 100%;
+        border-bottom: 1px solid;
+        .header-menu-title {
+            i {
+                color: #F57170 !important;
+            }
+            i::before{
+                margin-right: 5px;
+            }
+        }
+    }
+
+    .body-content {
+        height: calc(100vh - 85px);
+        width: 100%;
+        overflow-y: auto;
+        background-color: #F5F5F5;
+        color: #0a0a0a;
+    }
+
+    .foot-menu {
+        height: 50px;
+        background-image: linear-gradient(180deg, #F5F5F5, #fff);
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        color: #0a0a0a;
+    }
+}

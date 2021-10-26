@@ -12,7 +12,7 @@ import {Home} from "./components/pages";
 
 ReactDOM.render(
     <Provider store={store}>
-        <Home/>
+        <Router></Router>
     </Provider>,
     document.getElementById('root')
 );
