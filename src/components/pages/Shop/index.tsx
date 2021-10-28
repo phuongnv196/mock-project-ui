@@ -22,9 +22,11 @@ const Shop = () => {
     return (
         <React.Fragment>
             <BrowserView>
-                <DefaultLayout>
-                    <ProductList products={shops.shop.items || []}></ProductList>
-                </DefaultLayout>
+                <div className="container">
+                    <DefaultLayout>
+                        <ProductList products={shops.shop.items || []}></ProductList>
+                    </DefaultLayout>
+                </div> 
             </BrowserView>
             <MobileView>
                 <MobileLayout>

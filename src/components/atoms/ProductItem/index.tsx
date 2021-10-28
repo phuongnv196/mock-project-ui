@@ -20,7 +20,7 @@ const ProductItem = (props: any) => {
         //     </div>
         //     {productItem.name}
         // </div>
-        <div className="col-lg-2 col-md-3 col-sm-4 col-6 product-item mt-2">
+        <div className="col-lg-3 col-md-4 col-sm-4 col-6 product-item mt-2">
             <div className="card product-card">
                 <div className="image-container">
                     <img src={productItem.image ? `data:image/png;base64, ${productItem.image}` : '/images/no-image.jpg'} className="img-fluid rounded thumbnail-image"/>
