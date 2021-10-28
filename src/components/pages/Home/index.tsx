@@ -29,7 +29,15 @@ const Home = () => {
             <BrowserView>
                 <div className="container">
                     <DefaultLayout>
-                        <div style={{height: '100px', width: '100%'}}>đ</div>
+                        <Carousel autoplay>
+                            <div>
+                                <img src="images/samsung.jpg" width="100%"></img>
+                            </div>
+                            <div>
+                                <img src="images/samsung2.png" width="100%"></img>
+                            </div>
+                        </Carousel>
+                        <hr/>
                         <ShopList shops={shops.shopDataList}></ShopList>
                     </DefaultLayout>
                 </div> 
@@ -38,18 +46,13 @@ const Home = () => {
                 <MobileLayout>
                     <Carousel autoplay>
                         <div>
-                        <h3>1</h3>
+                            <img src="images/samsung.jpg" width="100%"></img>
                         </div>
                         <div>
-                        <h3>2</h3>
-                        </div>
-                        <div>
-                        <h3>3</h3>
-                        </div>
-                        <div>
-                        <h3>4</h3>
+                            <img src="images/samsung2.png" width="100%"></img>
                         </div>
                     </Carousel>
+                    <hr/>
                     <ShopList shops={shops.shopDataList}></ShopList>
                 </MobileLayout>
             </MobileView>
