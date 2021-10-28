@@ -3,11 +3,12 @@ export const ContentType = {
     FormData: 'multipart/form-data'
 }
 
+const baseUrl: string = process.env.BASE_URL || "https://mock-shop.azurewebsites.net/api";
 export class HttpClient {
-    baseUrl: string = process.env.BASE_URL || "https://localhost:44342/api";
 
     get<T>(uri: string): Promise<T> {
-        return fetch(`${this.baseUrl}/${uri}`).then((response) => {
+        console.log(baseUrl);
+        return fetch(`${baseUrl}/${uri}`).then((response) => {
             if (!response.ok) {
                 throw new Error(response.statusText)
             }
@@ -16,21 +17,21 @@ export class HttpClient {
     }
     
     post<T>(uri: string, data: any): Promise<T> {
-        var postData:any = {};
-        var contentType = ContentType.Json;
-
+        var postData:any = data;
+        var contentType = ContentType.Json || undefined;
+        var header = {
+            'Content-Type': contentType
+        } || undefined;
         if(data.constructor.name === 'FormData')
         {
-            var contentType = ContentType.FormData;
+            delete header['Content-Type'];
         } else {
             postData = JSON.stringify(data);
         }
-        
-        return fetch(`${this.baseUrl}/${uri}`, {
+
+        return fetch(`${baseUrl}/${uri}`, {
             method: 'POST',
-            headers: {
-              'Content-Type': contentType
-            },
+            headers: header as HeadersInit,
             body: postData
           }).then((response) => {
             if (!response.ok) {
@@ -51,7 +52,7 @@ export class HttpClient {
             postData = JSON.stringify(data);
         }
         
-        return fetch(`${this.baseUrl}/${uri}`, {
+        return fetch(`${baseUrl}/${uri}`, {
             method: 'PUT',
             headers: {
               'Content-Type': contentType
@@ -77,7 +78,7 @@ export class HttpClient {
             postData = JSON.stringify(data);
         }
         
-        return fetch(`${this.baseUrl}/${uri}`, {
+        return fetch(`${baseUrl}/${uri}`, {
             method: 'DELETE',
             headers: {
               'Content-Type': contentType

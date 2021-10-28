@@ -1,27 +1,70 @@
+import { useForm } from 'react-hook-form';
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { UserRegisterModel } from 'models/user-register.model';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createCustomer } from 'redux/reducers/Customer/customerSlice';
+import { createShop } from 'redux/reducers/Shop/shopSlice';
+import { ShopRegisterModel } from 'models/shop-register.model';
+import { Link } from 'react-router-dom';
+
 
 const SignUpForm = () => {
+    const [user, setUser] = useState({
+        phoneNumber: '',
+        name: '',
+        avatar: undefined,
+        logo: undefined,
+        isShop: false
+    });
 
-    const [inputPhoneNumber, setPhoneNumber] = useState(''); 
-    const [inputName, setName] = useState(''); 
-    const [inputLogo, setLogo] = useState(''); 
-    const [inputIsShop, setIsShop] = useState(''); 
+    const dispatch = useDispatch();
 
-    const handleChangePhoneNumber = (e: any) => {
-        setPhoneNumber(e.target.value);
-    }
-    const handleChangeName = (e: any) => {
-        setName(e.target.value);
-    }
-    const handleChangeLogo = (e: any) => {
-        setLogo(e.target.files[0]);
-    }
+    const schema = yup.object().shape({
+        phoneNumber: yup.string()
+            .required("Vui lòng nhập số điện thoại.")
+            .matches(/^0+[0-9]{9}$/, 'Định dạng không hợp lệ'),
+        name: yup.string()
+        .required("Vui lòng nhập tên.")      
+    });
+
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        defaultValues: {
+            phoneNumber: undefined,
+            name: undefined
+        },
+        mode: 'onChange',
+        resolver: yupResolver(schema)
+    });
+
     const handleChangeIsShop = (e: any) => {
-        setIsShop(e.target.checked);
+        setUser({
+            ...user,
+            isShop: e.target.checked
+        });
     }
 
-    const handleClickSignUp = () => {
-        alert(inputPhoneNumber + '---' + inputName + '---' + inputIsShop);
+    const handleChangeFile = (e: any) => {
+        setUser({
+            ...user,
+            avatar: e.target.files && e.target.files.length > 0? e.target.files[0] : undefined,
+            logo: e.target.files && e.target.files.length > 0? e.target.files[0] : undefined
+        });
+    }
+
+    const handleOnSubmit = (data: any) => {
+        let userData = user as any;
+        Object.keys(data).forEach((e, i) => {
+            userData[e] = data[e];
+        });
+        setUser(userData);
+        if (user.isShop) {
+            dispatch(createShop(user as ShopRegisterModel));
+        } else {
+            dispatch(createCustomer(user as UserRegisterModel));
+        }
+        return false;
     }
 
     return (
@@ -32,43 +75,46 @@ const SignUpForm = () => {
                         <div className="d-table-cell align-middle">
 
                             <div className="text-center mt-4">
-                                <h1 className="h2">Get started</h1>
+                                <h1 className="h2">Đăng ký</h1>
                                 <p className="lead">
-                                    Start creating the best possible user experience for you customers.
+                                    Nhập thông tin để tiếp tục.
                                 </p>
                             </div>
 
                             <div className="card">
                                 <div className="card-body">
                                     <div className="m-sm-4">
-                                        <form>
-                                        <div className="mb-3">
-                                                <label className="form-label">Phone Number</label>
-                                                <input value={inputPhoneNumber} onChange={handleChangePhoneNumber} className="form-control form-control-lg" type="text" name="phonenumber" placeholder="Enter your phone number" />
+                                        <form onSubmit={handleSubmit(handleOnSubmit)}>
+                                            <div className="mb-3">
+                                                <label className="form-label">Số điện thoại</label>
+                                                <input {...register('phoneNumber' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập số điện thoại"/>
+                                                { errors.phoneNumber && (errors.phoneNumber as any).message }
                                             </div>
                                             <div className="mb-3">
-                                                <label className="form-label">Name</label>
-                                                <input value={inputName} onChange={handleChangeName} className="form-control form-control-lg" type="text" name="name" placeholder="Enter your name" />
+                                                <label className="form-label">Tên</label>
+                                                <input {...register('name' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập tên" />
+                                                { errors.name && (errors.name as any).message }
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Avatar/Logo</label>
-                                                <input onChange={handleChangeLogo} className="form-control form-control-lg" type="file" name="avatar-logo" placeholder="Enter your Avatar/Logo" />
+                                                <input className="form-control form-control-lg" type="file" name="avatar-logo" placeholder="Chọn Avatar/Logo" onChange={handleChangeFile} />
                                             </div>
                                             <div>
                                                 <label className="form-check">
-                                                    <input value={inputIsShop} onChange={handleChangeIsShop} className="form-check-input" type="checkbox" name="is-shop"/>
+                                                    <input className="form-check-input" type="checkbox" onChange={handleChangeIsShop}/>
                                                     <span className="form-check-label">
-                                                        Please check if you are a shop?
+                                                       Đăng ký với tư cách shop?
                                                     </span>
                                                 </label>
                                             </div>
                                             <div className="text-center mt-3">
-                                                <button onClick={handleClickSignUp} className="btn btn-lg btn-primary">Sign up</button>
+                                                <button className="btn btn-lg btn-primary">Đăng ký</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
+                            Bạn đã có tài khoản? <Link to={"/login"}>Đăng nhập</Link>
                         </div>
                     </div>
                 </div>

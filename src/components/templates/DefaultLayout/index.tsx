@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Menu } from 'antd';
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
-
+import './index.scss';
 const { SubMenu } = Menu;
 const DefaultLayout = (props: any) => {
 
@@ -28,7 +28,7 @@ const DefaultLayout = (props: any) => {
                     </Menu.ItemGroup>
                 </SubMenu>
             </Menu>
-            <div>{children}</div>
+            <div className="content">{children}</div>
         </React.Fragment>
     );
 }

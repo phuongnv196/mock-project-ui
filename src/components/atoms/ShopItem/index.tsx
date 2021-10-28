@@ -3,7 +3,8 @@ import ProductList from 'components/molecules/ProductList';
 import { ShopModel } from 'models/shop.model';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getShopById } from 'redux/reducers/Shop/shopSlice';
+import { Link } from 'react-router-dom';
+import { getShopById } from 'redux/reducers/Home/homeSlice';
 import './index.scss';
 
 const ShopItem = (props: any) => {
@@ -35,16 +36,14 @@ const ShopItem = (props: any) => {
         <div className="col-12" style={{paddingLeft: "10px", paddingRight: "10px"}}>
             <div className="card">
                 <div className="card-header" onClick={handleClickHeader}>
-                    <div>
-                        {shopItem.name}
-                    </div>
+                <Link to={`shop?shopId=${shopItem.shopId}`}>
+                    <img className="shop-image" src={shopItem.image ? `data:image/png;base64, ${shopItem.image}` : '/images/no-image.jpg'} alt="" />
+                    {shopItem.name}
+                </Link>
                 </div>
                 <div className={`collapse ${isShow ? 'show': 'hide'}`} aria-labelledby="headingOne" data-parent="#accordion" >
                     <div className="card-body">
                         {
-                            !shopItem.items || shopItem.items.length == 0?
-                            <div>Không có sản phẩm nào</div>
-                            : 
                             <ProductList products={shopItem.items}/>
                         }
                     </div>

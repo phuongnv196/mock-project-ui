@@ -4,15 +4,11 @@ import { useHistory } from "react-router-dom";
 import { useLocation } from 'react-router';
 import DefaultLayout from "../../templates/DefaultLayout";
 import {RootState} from "../../../app/store";
-<<<<<<< Updated upstream
-import SignInForm from "components/molecules/SignInForm";
-import SignUpForm from "components/molecules/SignUpForm";
-=======
 import {BrowserView, MobileView} from 'react-device-detect';
 import MobileLayout from 'components/templates/MobileLayout';
 import ShopList from 'components/molecules/ShopList';
-import { getAllShop, getAllShops } from 'redux/reducers/Shop/shopSlice';
->>>>>>> Stashed changes
+import { getAllShops } from 'redux/reducers/Home/homeSlice';
+import { Carousel } from 'antd';
 
 const Home = () => {
     // let history = useHistory();
@@ -22,42 +18,39 @@ const Home = () => {
     //     history.push("/home");
     // }
 
-    const shops = useSelector((state: RootState) => state.shopReducer);
-
-<<<<<<< Updated upstream
-    if(!authentication) {
-        return (
-            <div>Home</div>
-        );
-    } else {
-        return (
-            <SignUpForm></SignUpForm>
-        )
-    }
-=======
+    const shops = useSelector((state: RootState) => state.homeReducer);
     const dispatch = useDispatch();
->>>>>>> Stashed changes
-
     useEffect(() => {
         dispatch(getAllShops());
     }, [])
-    // if(!authentication) {
-    //     return (
-    //         <div>Home</div>
-    //     );
-    // } else {
-    //     return <Router></Router>
-    // }
+
     return (
         <React.Fragment>
             <BrowserView>
-                <DefaultLayout>
-                    <ShopList shops={shops.shopDataList}></ShopList>
-                </DefaultLayout>
+                <div className="container">
+                    <DefaultLayout>
+                        <div style={{height: '100px', width: '100%'}}>đ</div>
+                        <ShopList shops={shops.shopDataList}></ShopList>
+                    </DefaultLayout>
+                </div> 
             </BrowserView>
             <MobileView>
                 <MobileLayout>
-                    sdhfkjsdhf
+                    <Carousel autoplay>
+                        <div>
+                        <h3>1</h3>
+                        </div>
+                        <div>
+                        <h3>2</h3>
+                        </div>
+                        <div>
+                        <h3>3</h3>
+                        </div>
+                        <div>
+                        <h3>4</h3>
+                        </div>
+                    </Carousel>
+                    <ShopList shops={shops.shopDataList}></ShopList>
                 </MobileLayout>
             </MobileView>
         </React.Fragment>

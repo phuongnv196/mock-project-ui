@@ -1,11 +1,15 @@
 import StorageKeys from "../constants/storage-keys";
 import { axiosGet, axiosPost } from "./axiosClient";
-import {UserModel} from "../models/user.model";
+import { HttpClient } from "./httpClient";
+import {UserRegisterModel} from "../models/user-register.model";
+import { serialize } from "object-to-formdata";
+
+const httpClient = new HttpClient();
 
 const userApi = {
-    register(user: UserModel) {
-        const url = 'register/';
-        return axiosPost(url, user);
+    register: async (user: UserRegisterModel): Promise<UserRegisterModel> => {
+        const url = 'Customer/register';
+        return httpClient.post<UserRegisterModel>(url, serialize(user));
     },
     login(data: any) {
         const url = '/login';

@@ -4,11 +4,14 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import InputField from "../../atoms/InputField";
 import { useState } from 'react';
 import imgLogo from "../../../img/logoApp.png";
+import { Link } from 'react-router-dom';
 
 const SignInForm = (props: any) => {
 
     const [inputPhoneNumber, setPhoneNumber] = useState(''); 
     const [inputIsShop, setIsShop] = useState(''); 
+
+
 
     const handleChangePhoneNumber = (e: any) => {
         setPhoneNumber(e.target.value);
@@ -29,9 +32,9 @@ const SignInForm = (props: any) => {
                         <div className="d-table-cell align-middle">
 
                             <div className="text-center mt-4">
-                                <h1 className="h2">Welcome back!</h1>
+                                <h1 className="h2">Chào mừng bạn quay trở lại!</h1>
                                 <p className="lead">
-                                    Sign in to your account to continue
+                                    Đăng nhập tài khoản để tiếp tục
                                 </p>
                             </div>
 
@@ -43,24 +46,25 @@ const SignInForm = (props: any) => {
                                         </div>
                                         <form>
                                             <div className="mb-3">
-                                                <label className="form-label">Phone Number</label>
+                                                <label className="form-label">Số điện thoại</label>
                                                 <input value={inputPhoneNumber} onChange={handleChangePhoneNumber} className="form-control form-control-lg" type="text" name="phonenumber" placeholder="Enter your phone number" />
                                             </div>
                                             <div>
                                                 <label className="form-check">
                                                     <input value={inputIsShop} onChange={handleChangeIsShop} className="form-check-input" type="checkbox" name="is-shop"/>
                                                     <span className="form-check-label">
-                                                        Please check if you are a shop?
+                                                        Đăng nhập với tư cách shop?
                                                     </span>
                                                 </label>
                                             </div>
                                             <div className="text-center mt-3">
-                                                <button onClick={handleClickSignIn} className="btn btn-lg btn-primary">Sign in</button>
+                                                <button onClick={handleClickSignIn} className="btn btn-lg btn-primary">Đăng nhập</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
+                            Không có tài khoản? <Link to={"/signup"}>Đăng ký</Link>
                         </div>
                     </div>
                 </div>

@@ -1,14 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { ShopRegisterModel } from 'models/shop-register.model';
 import { ShopModel } from 'models/shop.model';
 import shopApi from '../../../api/shopApi';
-
-const getAllShops = createAsyncThunk(
-    'shop/getAllShops',
-    async () => {
-      const response = await shopApi.getAll();
-      return response;
-    }
-  );
 
 const getShopById = createAsyncThunk(
 'shop/getShopById',
@@ -21,46 +14,30 @@ async (id: string) => {
 }
 );
 
+const createShop = createAsyncThunk(
+    'shop/createShop',
+    async (shop: ShopRegisterModel) => {
+        const response = await shopApi.createShop(shop);
+        return response;
+    }
+    );
+
 const shopSlice = createSlice({
     name: 'shop',
     initialState: {
-        shopDataList: new Array<ShopModel>(),
+        shop: new ShopModel({}),
     },
     reducers: {
-        getAllShop (state) {
-            var datas = new Array<ShopModel>(); 
-            shopApi.getAll().then(data => {
-                datas = data;
-            });
-            console.log(datas);
-            state.shopDataList = datas;
-        }
+      
     },
     extraReducers: (builder) => {
-        builder.addCase(getAllShops.fulfilled, (state, action) => {
-          state.shopDataList = action.payload;
-        })
+        builder
         .addCase(getShopById.fulfilled, (state, action) => {
-            var shopDataList = state.shopDataList.map((item) => {
-                var dataItem = item;
-                if(item.shopId === action.payload.shopId) {
-                    dataItem.items = action.payload.items;
-                } else {
-                    dataItem.items = dataItem.items;
-                }
-
-                return {
-                    ...item,
-                    items: dataItem.items
-                };
-            });
-            console.log('shopDataList', shopDataList);
-            state.shopDataList = shopDataList;
+            state.shop = action.payload;
           })
       },
 })
 
 const { actions, reducer } = shopSlice;
-export const { getAllShop } = actions;
-export {getAllShops, getShopById};
+export { getShopById, createShop};
 export default reducer
