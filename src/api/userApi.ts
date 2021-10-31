@@ -7,9 +7,9 @@ import { serialize } from "object-to-formdata";
 const httpClient = new HttpClient();
 
 const userApi = {
-    register: async (user: UserRegisterModel): Promise<UserRegisterModel> => {
+    register: async (user: UserRegisterModel): Promise<any> => {
         const url = 'Customer/register';
-        return httpClient.post<UserRegisterModel>(url, serialize(user));
+        return httpClient.post<any>(url, serialize(user));
     },
     login(data: any) {
         const url = '/login';

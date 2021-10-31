@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { message } from 'antd';
 import { ShopRegisterModel } from 'models/shop-register.model';
 import { ShopModel } from 'models/shop.model';
 import shopApi from '../../../api/shopApi';
@@ -17,10 +18,18 @@ async (id: string) => {
 const createShop = createAsyncThunk(
     'shop/createShop',
     async (shop: ShopRegisterModel) => {
-        const response = await shopApi.createShop(shop);
-        return response;
+        try {
+            const response = await shopApi.createShop(shop);
+            const shopModel = new ShopModel(shop);
+            shopModel.shopId = response.shopId;
+            message.success('Đăng ký thành công!');
+            return shopModel;
+        } catch (error: any) {
+            message.error(error.message);
+        }
+        return ;
     }
-    );
+);
 
 const shopSlice = createSlice({
     name: 'shop',
@@ -35,6 +44,11 @@ const shopSlice = createSlice({
         .addCase(getShopById.fulfilled, (state, action) => {
             state.shop = action.payload;
           })
+        .addCase(createShop.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.shop = action.payload;
+            }
+        })
       },
 })
 

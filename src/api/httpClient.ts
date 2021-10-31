@@ -9,11 +9,17 @@ export class HttpClient {
     get<T>(uri: string): Promise<T> {
         console.log(baseUrl);
         return fetch(`${baseUrl}/${uri}`).then((response) => {
+            console.log(response);
             if (!response.ok) {
-                throw new Error(response.statusText)
+                console.log(response.statusText);
+                throw new Error(`${response.statusText} ${response.text()}`);
             }
             return response.json() as Promise<T>;
-        })
+        }).catch((error) => {
+            debugger;
+            console.log(error);
+            throw new Error(`${error.statusText} ${error.text()}`);
+        });
     }
     
     post<T>(uri: string, data: any): Promise<T> {
@@ -33,9 +39,10 @@ export class HttpClient {
             method: 'POST',
             headers: header as HeadersInit,
             body: postData
-          }).then((response) => {
+          }).then( async (response) => {
             if (!response.ok) {
-                throw new Error(response.statusText)
+                var data = await response.text();
+                throw new Error(`${data || response.statusText}`);
             }
             return response.json() as Promise<T>;
           });

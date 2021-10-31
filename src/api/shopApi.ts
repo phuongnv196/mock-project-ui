@@ -11,9 +11,9 @@ const shopApi =  {
     getById: async (id: string): Promise<ShopModel> => {
         return await client.get<ShopModel>(`Shop/${id}`);
     },
-    createShop: async (shop: ShopRegisterModel): Promise<ShopRegisterModel> => {
+    createShop: async (shop: ShopRegisterModel): Promise<any> => {
         const url = 'Shop/register';
-        return client.post<ShopRegisterModel>(url, serialize(shop));
+        return client.post<any>(url, serialize(shop));
     },
 }
 
