@@ -1,32 +1,37 @@
-import React, {useState} from 'react';
-import { Menu } from 'antd';
+import React, {useEffect, useState} from 'react';
+import { Drawer, Menu, Modal } from 'antd';
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import './index.scss';
+import { SignInForm } from 'components/molecules';
+import { useHistory, useLocation } from 'react-router';
 const { SubMenu } = Menu;
 const DefaultLayout = (props: any) => {
 
     const { children } = props;
-    const [ current, setCurrent ] = useState("mail");
+    const [ current, setCurrent ] = useState("/");
+    const location = useLocation();
+    const history = useHistory();
+    
+    useEffect(() => {
+        setCurrent(location.pathname as string);
+    });
 
-    const handleClick = () => {
-
+    const handleClick = (e: any) => {
+        history.push(e.key as string);
     }
 
     return (
         <React.Fragment>
             <Menu onClick={handleClick} selectedKeys={[current]} mode="horizontal">
-                <Menu.Item key="mail" icon={<MailOutlined />}>
-                    Navigation One
+                <Menu.Item key="/" icon={<i className="fa fa-home"> </i>}>
+                    Trang chủ
                 </Menu.Item>
-                <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
-                    Navigation Two
+                <Menu.Item key="/cart" icon={<i className="fa fa-shopping-cart"> </i>}>
+                    Giỏ hàng
                 </Menu.Item>
-                <SubMenu key="SubMenu" icon={<SettingOutlined />} title="Navigation Three - Submenu">
-                    <Menu.ItemGroup title="Item 2">
-                        <Menu.Item key="setting:3">Option 3</Menu.Item>
-                        <Menu.Item key="setting:4">Option 4</Menu.Item>
-                    </Menu.ItemGroup>
-                </SubMenu>
+                <Menu.Item key="/user" icon={<i className="fa fa-user"> </i>}>
+                    Cá nhân
+                </Menu.Item>
             </Menu>
             <div className="content">{children}</div>
         </React.Fragment>

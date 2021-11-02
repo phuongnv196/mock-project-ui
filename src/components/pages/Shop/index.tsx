@@ -8,6 +8,7 @@ import { getShopById } from "redux/reducers/Shop/shopSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import ProductList from 'components/molecules/ProductList';
+import ShopInfo from 'components/molecules/ShopInfo';
 
 const Shop = () => {
     const location = useLocation();
@@ -24,13 +25,29 @@ const Shop = () => {
             <BrowserView>
                 <div className="container">
                     <DefaultLayout>
-                        <ProductList products={shops.shop.items || []}></ProductList>
+                        <ShopInfo shopData={shops}/>
+                        <div className="card mt-2">
+                            <div className="card-header">
+                                Danh sách sản phẩm
+                            </div>
+                            <div className="card-body">
+                                <ProductList products={shops.shop.items || []}></ProductList>
+                            </div>
+                        </div>
                     </DefaultLayout>
                 </div> 
             </BrowserView>
             <MobileView>
                 <MobileLayout>
-                    <ProductList products={shops.shop.items || []}></ProductList>
+                    <ShopInfo shopData={shops}/>
+                    <div className="card mt-2">
+                        <div className="card-header">
+                            Danh sách sản phẩm
+                        </div>
+                        <div className="card-body">
+                            <ProductList products={shops.shop.items || []}></ProductList>
+                        </div>
+                    </div>
                 </MobileLayout>
             </MobileView>
         </React.Fragment>

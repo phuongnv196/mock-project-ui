@@ -18,16 +18,17 @@ async (id: string) => {
 const createShop = createAsyncThunk(
     'shop/createShop',
     async (shop: ShopRegisterModel) => {
-        try {
-            const response = await shopApi.createShop(shop);
-            const shopModel = new ShopModel(shop);
-            shopModel.shopId = response.shopId;
-            message.success('Đăng ký thành công!');
-            return shopModel;
-        } catch (error: any) {
-            message.error(error.message);
-        }
-        return ;
+        console.log(shop);
+        // try {
+        //     const response = await shopApi.createShop(shop);
+        //     const shopModel = new ShopModel(shop);
+        //     shopModel.shopId = response.shopId;
+        //     message.success('Đăng ký thành công!');
+        //     return shopModel;
+        // } catch (error: any) {
+        //     message.error(error.message);
+        // }
+        return {};
     }
 );
 

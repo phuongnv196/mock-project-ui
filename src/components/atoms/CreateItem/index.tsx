@@ -31,8 +31,7 @@ const CreateItem = () => {
         defaultValues: {
             shopId: undefined,
             name: undefined,
-            price: undefined,
-            image: undefined
+            price: undefined
         },
         mode: 'onChange',
         resolver: yupResolver(schema)
@@ -76,17 +75,17 @@ const CreateItem = () => {
                                             <div className="mb-3">
                                                 <label className="form-label">Shop Id</label>
                                                 <input {...register('shopId' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập shop Id"/>
-                                                { errors.shopId && (errors.shopId as any).message }
+                                                <span className="text-danger">{ errors.shopId && (errors.shopId as any).message }</span>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Tên sản phẩm</label>
                                                 <input {...register('name' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập tên sẩn phẩm" />
-                                                { errors.name && (errors.name as any).message }
+                                                <span className="text-danger">{ errors.name && (errors.name as any).message }</span>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Giá sản phẩm</label>
                                                 <input {...register('price' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập giá sẩn phẩm" />
-                                                { errors.price && (errors.price as any).message }
+                                                <span className="text-danger">{ errors.price && (errors.price as any).message }</span>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Image</label>

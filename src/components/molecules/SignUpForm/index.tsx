@@ -60,9 +60,9 @@ const SignUpForm = () => {
         });
         setUser(userData);
         if (user.isShop) {
-            dispatch(createShop(user as ShopRegisterModel));
+            dispatch(createShop(new ShopRegisterModel(user)));
         } else {
-            dispatch(createCustomer(user as UserRegisterModel));
+            dispatch(createCustomer(new UserRegisterModel(user)));
         }
         return false;
     }
@@ -70,17 +70,15 @@ const SignUpForm = () => {
     return (
         <main className="d-flex w-100 h-100">
             <div className="container d-flex flex-column">
-                <div className="row vh-100">
+                <div className="row h-100">
                     <div className="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                        <div className="d-table-cell align-middle">
-
-                            <div className="text-center mt-4">
-                                <h1 className="h2">Đăng ký</h1>
+                        <div className="d-table-cell">
+                            <div className="text-center mt-2">
+                                <h3 className="h2">Đăng ký</h3>
                                 <p className="lead">
                                     Nhập thông tin để tiếp tục.
                                 </p>
                             </div>
-
                             <div className="card">
                                 <div className="card-body">
                                     <div className="m-sm-4">
@@ -88,12 +86,12 @@ const SignUpForm = () => {
                                             <div className="mb-3">
                                                 <label className="form-label">Số điện thoại</label>
                                                 <input {...register('phoneNumber' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập số điện thoại"/>
-                                                { errors.phoneNumber && (errors.phoneNumber as any).message }
+                                                <span className="text-danger">{ errors.phoneNumber && (errors.phoneNumber as any).message }</span>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Tên</label>
                                                 <input {...register('name' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập tên" />
-                                                { errors.name && (errors.name as any).message }
+                                                <span className="text-danger">{ errors.name && (errors.name as any).message }</span>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Avatar/Logo</label>

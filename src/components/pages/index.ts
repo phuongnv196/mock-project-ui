@@ -3,6 +3,8 @@ import About from './About';
 import Login from './Login';
 import Cart from './Cart';
 import Shop from './Shop';
+import User from './User';
+
 
 
 export {
@@ -10,5 +12,6 @@ export {
     About,
     Login,
     Cart,
-    Shop
+    Shop,
+    User
 }
