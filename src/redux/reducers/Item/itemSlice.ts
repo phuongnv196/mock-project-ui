@@ -12,7 +12,7 @@ const createItem = createAsyncThunk(
       const itemModel = new Item(response);
       itemModel.itemId = response.itemId;
       message.success('Tạo sản phẩm thành công!');
-      return response;
+      return itemModel;
     }catch(error: any){
       message.error(error.message);
     }

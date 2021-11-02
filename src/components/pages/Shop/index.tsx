@@ -4,7 +4,7 @@ import DefaultLayout from "components/templates/DefaultLayout";
 import MobileLayout from "components/templates/MobileLayout";
 import React, { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
-import { getShopById, pushItem } from "redux/reducers/Shop/shopSlice";
+import { getShopById } from "redux/reducers/Shop/shopSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import ProductList from 'components/molecules/ProductList';
