@@ -21,7 +21,7 @@ const createItem = createAsyncThunk(
 );
 
 const updateItem = createAsyncThunk(
-  'item/',
+  'item',
   async (item: ItemCreateModel) => {
     try{
       const response = await itemApi.updateItem(item);
