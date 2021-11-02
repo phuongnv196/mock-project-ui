@@ -15,6 +15,10 @@ const shopApi =  {
         const url = 'Shop/register';
         return client.post<any>(url, serialize(shop));
     },
+    login: async (phoneNumber: string): Promise<any> => {
+        const url = 'Shop/login';
+        return client.post<any>(url, { phoneNumber: phoneNumber});
+    }
 }
 
 export default shopApi;

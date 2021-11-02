@@ -28,7 +28,7 @@ const MobileLayout = (props: any) => {
                 <div className="foot-menu">
                     <ButtonMenu icon="fa-home" path="/">Trang chủ</ButtonMenu>
                     <ButtonMenu icon="fa-shopping-cart" path="/cart">Giỏ hàng</ButtonMenu>
-                    <ButtonMenu icon="fa-user" path="/login">Người dùng</ButtonMenu>
+                    <ButtonMenu icon="fa-user" path="/user">Người dùng</ButtonMenu>
                 </div>
                 : ''
             }

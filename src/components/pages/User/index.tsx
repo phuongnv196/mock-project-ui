@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import React, { useEffect } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import Customer from '../Customer';
 import { BrowserView, MobileView } from 'react-device-detect';
 import DefaultLayout from 'components/templates/DefaultLayout';
@@ -11,12 +11,13 @@ const User = () => {
     const customerState = useSelector((state: RootState) => state.customerReducer);
     const shopState = useSelector((state: RootState) => state.shopReducer);
     const history = useHistory();
+    const location = useLocation();
 
     useEffect(() => {
         if(!(customerState.customer && customerState.customer.customerId) &&
             !(shopState.shop && shopState.shop.shopId)
         ) {
-            history.push('/login');
+            history.push('/login', { redirect: location.pathname});
         }
     });
 

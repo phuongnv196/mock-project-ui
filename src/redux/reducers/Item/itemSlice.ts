@@ -13,13 +13,15 @@ const createItem = createAsyncThunk(
 const itemSlice = createSlice({
     name: 'item',
     initialState: {
-        itemId: undefined,
+        itemId: '',
     },
     reducers: {
     },
     extraReducers: (builder) => {
         builder.addCase(createItem.fulfilled, (state, action) => {
-            
+            if (action.payload && action.payload.itemId) {
+              state.itemId = action.payload.itemId;
+            }
         })
       },
 })

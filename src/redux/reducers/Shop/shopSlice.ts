@@ -18,24 +18,42 @@ async (id: string) => {
 const createShop = createAsyncThunk(
     'shop/createShop',
     async (shop: ShopRegisterModel) => {
-        console.log(shop);
-        // try {
-        //     const response = await shopApi.createShop(shop);
-        //     const shopModel = new ShopModel(shop);
-        //     shopModel.shopId = response.shopId;
-        //     message.success('Đăng ký thành công!');
-        //     return shopModel;
-        // } catch (error: any) {
-        //     message.error(error.message);
-        // }
+        try {
+            const response = await shopApi.createShop(shop);
+            const shopModel = new ShopModel(shop);
+            shopModel.shopId = response.shopId;
+            message.success('Đăng ký thành công!');
+            return shopModel;
+        } catch (error: any) {
+            message.error(error.message);
+        }
         return {};
+    }
+);
+
+const shopLogin = createAsyncThunk(
+    'shop/login',
+    async (phoneNumber: string) => {
+        try {
+            const response = await shopApi.login(phoneNumber);
+            if (response.shopId) {
+                message.success('Đăng nhập thành công!');
+                const shop = await shopApi.getById(response.shopId);
+                shop.shopId = response.shopId;
+                localStorage.setItem('shopData', JSON.stringify(shop));
+                return shop;
+            }
+        } catch (error: any) {
+            message.error('Thông tin đăng nhập không đúng!');
+        }
+        return null;
     }
 );
 
 const shopSlice = createSlice({
     name: 'shop',
     initialState: {
-        shop: new ShopModel({}),
+        shop: new ShopModel(JSON.parse(localStorage.getItem('shopData') || '{}')),
     },
     reducers: {
       
@@ -50,9 +68,14 @@ const shopSlice = createSlice({
                 state.shop = action.payload;
             }
         })
+        .addCase(shopLogin.fulfilled, (state, action) => {
+            if (action.payload) {
+                state.shop = action.payload;
+            }
+        })
       },
 })
 
 const { actions, reducer } = shopSlice;
-export { getShopById, createShop};
+export { getShopById, createShop, shopLogin};
 export default reducer

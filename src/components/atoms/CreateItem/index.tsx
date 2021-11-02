@@ -2,25 +2,29 @@ import { useForm } from 'react-hook-form';
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createItem } from 'redux/reducers/Item/itemSlice';
 import { ItemCreateModel } from 'models/item-create.model';
 import { Link } from 'react-router-dom';
+import { RootState } from 'app/store';
 
 
-const CreateItem = () => {
+const CreateItem = (props: any) => {
+    const {shopId, onSaveSuccess} = props;
+
+    const itemState = useSelector((state: RootState) => state.itemReducer);
+    
     const [item, setItem] = useState({
-        shopId : '',
+        shopId : shopId,
         name: '',
         price : '',
-        image: undefined
+        image: undefined,
+        itemId: ''
     });
 
     const dispatch = useDispatch();
 
     const schema = yup.object().shape({
-        shopId: yup.string()
-        .required("Vui lòng nhập shop."), 
         name: yup.string()
         .required("Vui lòng nhập tên."), 
         price : yup.string()
@@ -29,7 +33,7 @@ const CreateItem = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
-            shopId: undefined,
+            shopId: shopId,
             name: undefined,
             price: undefined
         },
@@ -44,39 +48,33 @@ const CreateItem = () => {
         });
     }
 
-    const handleOnSubmit = (data: any) => {
+    const handleOnSubmit = async (data: any) => {
         let itemData = item as any;
         Object.keys(data).forEach((e, i) => {
             itemData[e] = data[e];
         });
         setItem(itemData);
-        dispatch(createItem(item as ItemCreateModel));
+        await dispatch(createItem(item as ItemCreateModel));
+        item.itemId = itemState.itemId;
+        onSaveSuccess && onSaveSuccess(item);
         return false;
     }
 
     return (
         <main className="d-flex w-100 h-100">
             <div className="container d-flex flex-column">
-                <div className="row vh-100">
+                <div className="row">
                     <div className="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
-                        <div className="d-table-cell align-middle">
-
-                            <div className="text-center mt-4">
-                                <h1 className="h2">Nhập sản phẩm mới</h1>
+                        <div className="d-table-cell">
+                            <div className="text-center mt-2">
                                 <p className="lead">
                                     Nhập thông tin sản phẩm cần thêm.
                                 </p>
                             </div>
-
                             <div className="card">
                                 <div className="card-body">
                                     <div className="m-sm-4">
                                         <form onSubmit={handleSubmit(handleOnSubmit)}>
-                                            <div className="mb-3">
-                                                <label className="form-label">Shop Id</label>
-                                                <input {...register('shopId' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập shop Id"/>
-                                                <span className="text-danger">{ errors.shopId && (errors.shopId as any).message }</span>
-                                            </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Tên sản phẩm</label>
                                                 <input {...register('name' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập tên sẩn phẩm" />
@@ -88,11 +86,11 @@ const CreateItem = () => {
                                                 <span className="text-danger">{ errors.price && (errors.price as any).message }</span>
                                             </div>
                                             <div className="mb-3">
-                                                <label className="form-label">Image</label>
+                                                <label className="form-label">Hình ảnh</label>
                                                 <input className="form-control form-control-lg" type="file" name="avatar-logo" placeholder="Chọn Image" onChange={handleChangeFile} />
                                             </div>
                                             <div className="text-center mt-3">
-                                                <button className="btn btn-lg btn-primary">Create Item</button>
+                                                <button className="btn btn-lg btn-primary">Thêm sản phẩm</button>
                                             </div>
                                         </form>
                                     </div>

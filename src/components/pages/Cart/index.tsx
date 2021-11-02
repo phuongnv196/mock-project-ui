@@ -7,11 +7,11 @@ const Cart = () => {
     return (
         <React.Fragment>
             <BrowserView>
-                    <div className="container">
-                        <DefaultLayout>
-                            Web Layout
-                        </DefaultLayout>
-                    </div> 
+                <div className="container">
+                    <DefaultLayout>
+                        Web Layout
+                    </DefaultLayout>
+                </div> 
             </BrowserView>
             <MobileView>
                 <MobileLayout>

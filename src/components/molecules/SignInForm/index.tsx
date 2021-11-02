@@ -8,6 +8,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from 'redux/reducers/Customer/customerSlice';
 import { RootState } from 'app/store';
+import { shopLogin } from 'redux/reducers/Shop/shopSlice';
 
 const SignInForm = (props: any) => {
 
@@ -16,6 +17,8 @@ const SignInForm = (props: any) => {
     const history = useHistory();
 
     const user = useSelector((state: RootState) => state.customerReducer);
+    const shop = useSelector((state: RootState) => state.shopReducer);
+
     const [isShop, setIsShop] = useState(false); 
 
     const schema = yup.object().shape({
@@ -39,16 +42,21 @@ const SignInForm = (props: any) => {
     const handleOnSubmit = (data: any) => {
         if (!isShop) {
             dispatch(login(data.phoneNumber));
-        } 
+        } else {
+            dispatch(shopLogin(data.phoneNumber));
+        }
         return false;
     }
 
     useEffect(() => {
        if (user.customer && user.customer.customerId) {
-            //history.push('/');
             onLoginSuccess && onLoginSuccess();
        }
-    }, [user]);
+
+       if (shop.shop && shop.shop.shopId) {
+            onLoginSuccess && onLoginSuccess();
+       }
+    }, [user, shop]);
 
     return (
         <main className="d-flex w-100 h-100">
