@@ -16,7 +16,7 @@ const createItem = createAsyncThunk(
     }catch(error: any){
       message.error(error.message);
     }
-    return {};
+    return new Item({});
   }
 );
 
