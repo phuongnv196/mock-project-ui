@@ -1,8 +1,8 @@
 export class Item {
     itemId?: string;
     name?: string;
-    price?: number;
-    image?: string;
+    price?: string;
+    image?: File;
     isActive?: boolean;
     shopId?: string;
 

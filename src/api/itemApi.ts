@@ -9,5 +9,9 @@ const itempApi =  {
         const url = 'Item/create';
         return client.post<Item>(url, serialize(item));
     },
+    updateItem: async (item: ItemCreateModel): Promise<Item> => {
+        const url = 'Item/';
+        return client.put<Item>(url, serialize(item));
+    },
 }
 export default itempApi;
