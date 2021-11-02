@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { message } from 'antd';
 import { ShopRegisterModel } from 'models/shop-register.model';
 import { ShopModel } from 'models/shop.model';
+import { Item } from 'models/item.model';
 import shopApi from '../../../api/shopApi';
 
 const getShopById = createAsyncThunk(
@@ -27,7 +28,7 @@ const createShop = createAsyncThunk(
         } catch (error: any) {
             message.error(error.message);
         }
-        return {};
+        return new ShopModel({});
     }
 );
 
@@ -53,10 +54,14 @@ const shopLogin = createAsyncThunk(
 const shopSlice = createSlice({
     name: 'shop',
     initialState: {
-        shop: new ShopModel(JSON.parse(localStorage.getItem('shopData') || '{}')),
+        shop: new ShopModel({}),
+        currentShop: new ShopModel(JSON.parse(localStorage.getItem('shopData') || '{}'))
     },
     reducers: {
-      
+        pushItem(state, action) {
+            console.log('add Item', action.payload);
+            state.shop.items.push(new Item(action.payload));
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -77,5 +82,6 @@ const shopSlice = createSlice({
 })
 
 const { actions, reducer } = shopSlice;
-export { getShopById, createShop, shopLogin};
+const { pushItem } = actions;
+export { getShopById, createShop, shopLogin, pushItem};
 export default reducer

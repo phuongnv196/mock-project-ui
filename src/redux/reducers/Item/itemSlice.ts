@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import itemApi from 'api/itemApi';
 import { ItemCreateModel } from 'models/item-create.model';
+import { Item } from 'models/item.model';
+
 
 const createItem = createAsyncThunk(
     'item/create',
@@ -14,6 +16,7 @@ const itemSlice = createSlice({
     name: 'item',
     initialState: {
         itemId: '',
+        item: new Item({})
     },
     reducers: {
     },
@@ -21,6 +24,7 @@ const itemSlice = createSlice({
         builder.addCase(createItem.fulfilled, (state, action) => {
             if (action.payload && action.payload.itemId) {
               state.itemId = action.payload.itemId;
+              state.item = action.payload;
             }
         })
       },

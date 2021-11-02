@@ -10,7 +10,7 @@ const ShopList = (props: any) => {
     return (
         <div id="accordion" className="row">
             {
-                shops.map((item: ShopModel, index: number) =>  <ShopItem isShow={index == 0} shopData={item}/>)
+                shops.map((item: ShopModel, index: number) =>  <ShopItem isShow={index == 0} key={item.shopId} shopData={item}/>)
             }
         </div>
     )

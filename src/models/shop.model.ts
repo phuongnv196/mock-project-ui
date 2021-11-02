@@ -6,7 +6,7 @@ export class ShopModel {
     phoneNumber?: string;
     image?: string;
     isActived?: boolean;
-    items?: Item[];
+    items: Item[] = [];
 
     constructor(init: Partial<ShopModel>) {
         Object.assign(this, init);

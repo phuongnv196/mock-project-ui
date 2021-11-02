@@ -11,7 +11,7 @@ const ProductList = (props: any) => {
         <div>Không có sản phẩm nào</div>: 
         <div className="product-list row">
         {
-            products.map((product: Item) => <ProductItem product={product}></ProductItem>)
+            products.map((product: Item) => <ProductItem key={product.itemId} product={product}></ProductItem>)
         }
         </div>
     )

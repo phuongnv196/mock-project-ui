@@ -48,15 +48,15 @@ const CreateItem = (props: any) => {
         });
     }
 
-    const handleOnSubmit = async (data: any) => {
+    const handleOnSubmit = (data: any) => {
         let itemData = item as any;
         Object.keys(data).forEach((e, i) => {
             itemData[e] = data[e];
         });
         setItem(itemData);
-        await dispatch(createItem(item as ItemCreateModel));
-        item.itemId = itemState.itemId;
-        onSaveSuccess && onSaveSuccess(item);
+        dispatch(createItem(item as ItemCreateModel));
+        console.log('item in create', itemState.item);
+        onSaveSuccess && onSaveSuccess(itemState.item);
         return false;
     }
 

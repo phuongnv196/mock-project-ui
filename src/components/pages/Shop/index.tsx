@@ -4,7 +4,7 @@ import DefaultLayout from "components/templates/DefaultLayout";
 import MobileLayout from "components/templates/MobileLayout";
 import React, { useEffect, useState } from "react";
 import { BrowserView, MobileView } from "react-device-detect";
-import { getShopById } from "redux/reducers/Shop/shopSlice";
+import { getShopById, pushItem } from "redux/reducers/Shop/shopSlice";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import ProductList from 'components/molecules/ProductList';
@@ -19,20 +19,29 @@ const Shop = () => {
     const dispatch = useDispatch();
     const shops = useSelector((state: RootState) => state.shopReducer);
     const [isEnableAddItem, setIsEnableAddItem] = useState(false);
-    const [isModalVisible, setIsModalVisible] = useState(true);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
-    useEffect(() => {
+    const getShopData = () => {
         var search = queryString.parse(location.search);
         dispatch(getShopById(search.shopId as string));
-        if (shops.shop && shops.shop.shopId == search.shopId) {
+        if (shops.currentShop && shops.currentShop.shopId == search.shopId) {
             setIsEnableAddItem(true);
         }
+    }
+
+    useEffect(() => {
+        getShopData();
     }, []);
+
+    const onSaveSuccess = (data: any) => {
+        setIsModalVisible(false);
+        getShopData();
+    }
 
     return (
         <React.Fragment>
-            <Modal title="Basic Modal" visible={isModalVisible} onCancel={() => setIsModalVisible(false)} footer={[]}>
-                <CreateItem /> 
+            <Modal title="Thêm sản phẩm" visible={isModalVisible} onCancel={() => setIsModalVisible(false)} footer={[]}>
+                <CreateItem onSaveSuccess={onSaveSuccess} shopId={shops.shop.shopId}/> 
             </Modal>
             <BrowserView>
                 <div className="container">
@@ -43,7 +52,7 @@ const Shop = () => {
                                 <label className="h5">Danh sách sản phẩm</label>
                                 {
                                     isEnableAddItem ? 
-                                    <button className="btn btn-success">
+                                    <button className="btn btn-success" onClick={() => setIsModalVisible(true)}>
                                         <i className="fa fa-plus"></i>
                                         Thêm sản phẩm
                                     </button>
@@ -65,7 +74,7 @@ const Shop = () => {
                             <label className="h5">Danh sách sản phẩm</label>
                             {
                                 isEnableAddItem ? 
-                                <button className="btn btn-success">
+                                <button className="btn btn-success" onClick={() => setIsModalVisible(true)}>
                                     <i className="fa fa-plus"></i>
                                 </button>
                                 : ''
