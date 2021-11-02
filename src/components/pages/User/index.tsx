@@ -6,6 +6,7 @@ import Customer from '../Customer';
 import { BrowserView, MobileView } from 'react-device-detect';
 import DefaultLayout from 'components/templates/DefaultLayout';
 import MobileLayout from 'components/templates/MobileLayout';
+import ShopInfo from 'components/molecules/ShopInfo';
 
 const User = () => {
     const customerState = useSelector((state: RootState) => state.customerReducer);
@@ -15,7 +16,7 @@ const User = () => {
 
     useEffect(() => {
         if(!(customerState.customer && customerState.customer.customerId) &&
-            !(shopState.shop && shopState.shop.shopId)
+            !(shopState.currentShop && shopState.currentShop.shopId)
         ) {
             history.push('/login', { redirect: location.pathname});
         }
@@ -28,8 +29,8 @@ const User = () => {
                 <Customer/> : ''
             }
             {
-                (shopState.shop && shopState.shop.shopId) ?
-                <div></div> : ''
+                (shopState.currentShop && shopState.currentShop.shopId) ?
+                <ShopInfo shopId={shopState.currentShop.shopId}/> : ''
             }
         </React.Fragment>
     }

@@ -9,13 +9,13 @@ import queryString from 'query-string';
 import './index.scss';
 
 const ShopInfo = (props: any) => {
+    const {shopId} = props; 
     const location = useLocation();
     const dispatch = useDispatch();
     const shops = useSelector((state: RootState) => state.shopReducer);
 
     useEffect(() => {
-        var search = queryString.parse(location.search);
-        dispatch(getShopById(search.shopId as string));
+        dispatch(getShopById(shopId));
     }, []);
 
     return (

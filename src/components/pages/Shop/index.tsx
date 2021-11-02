@@ -13,16 +13,16 @@ import './index.scss';
 import CreateItem from 'components/atoms/CreateItem';
 import { Modal } from 'antd';
 
-const Shop = () => {
+const Shop = (props: any) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const shops = useSelector((state: RootState) => state.shopReducer);
     const [isEnableAddItem, setIsEnableAddItem] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
-
+    const search = queryString.parse(location.search);
     const getShopData = () => {
-        var search = queryString.parse(location.search);
-        dispatch(getShopById(search.shopId as string));
+        var id = search.shopId as string;
+        dispatch(getShopById(id));
         if (shops.currentShop && shops.currentShop.shopId == search.shopId) {
             setIsEnableAddItem(true);
         }
@@ -47,7 +47,7 @@ const Shop = () => {
             <BrowserView>
                 <div className="container">
                     <DefaultLayout>
-                        <ShopInfo shopData={shops}/>
+                        <ShopInfo shopId={search.shopId as string}/>
                         <div className="card mt-2">
                             <div className="card-header product-list-header">
                                 <label className="h5">Danh sách sản phẩm</label>
