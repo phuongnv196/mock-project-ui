@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import ProductList from 'components/molecules/ProductList';
 import ShopInfo from 'components/molecules/ShopInfo';
-
 import './index.scss';
 import CreateItem from 'components/atoms/CreateItem';
 import { Modal } from 'antd';
@@ -34,8 +33,10 @@ const Shop = () => {
     }, []);
 
     const onSaveSuccess = (data: any) => {
+        setTimeout(() => {
+            getShopData();
+        }, 1000);
         setIsModalVisible(false);
-        getShopData();
     }
 
     return (
