@@ -10,7 +10,7 @@ const itempApi =  {
         return client.post<Item>(url, serialize(item));
     },
     updateItem: async (item: ItemCreateModel): Promise<Item> => {
-        const url = 'Item/';
+        const url = 'Item';
         return client.put<Item>(url, serialize(item));
     },
 }
