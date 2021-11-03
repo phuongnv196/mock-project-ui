@@ -18,11 +18,10 @@ const ShopItem = (props: any) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(isShow) {
+        if(isShow && shopItem.shopId) {
             dispatch(getShopById(shopItem.shopId || ""));
         }
-        console.log('shop:', shopItem.shopId, shop);
-    }, []);
+    }, [shop]);
 
     const handleClickHeader = (): any => {
         setIsShow(!isShow);

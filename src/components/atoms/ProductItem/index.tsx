@@ -20,18 +20,19 @@ const ProductItem = (props: any) => {
     const shops = useSelector((state: RootState) => state.shopReducer);
     const [isEnableEditItem, setIsEnableEditItem] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isShowAddCart, setIsShowAddCart] = useState(true);
+    var search = queryString.parse(location.search);
 
     const getShopData = () => {
-        var search = queryString.parse(location.search);
         dispatch(getShopById(search.shopId as string));
-        if (shops.currentShop && shops.currentShop.shopId == search.shopId) {
-            setIsEnableEditItem(true);
-        }
     }
 
     useEffect(() => {
-        getShopData();
-    }, []);
+        setIsShowAddCart(!(shops.currentShop && shops.currentShop.shopId));
+        if (shops.currentShop && shops.currentShop.shopId && shops.currentShop.shopId == search.shopId) {
+            setIsEnableEditItem(true);
+        }
+    })
 
     const onSaveSuccess = (data: any) => {
         setTimeout(() => {
@@ -54,7 +55,7 @@ const ProductItem = (props: any) => {
         // </div>
         <div className="col-lg-3 col-md-4 col-sm-4 col-6 product-item mt-2">
             <Modal title="Chỉnh sửa sản phẩm" visible={isModalVisible} onCancel={() => setIsModalVisible(false)} footer={[]}>
-                <UpdateItem onSaveSuccess={onSaveSuccess} shopId={shops.shop.shopId} itemId={productItem.itemId}/> 
+                <UpdateItem onSaveSuccess={onSaveSuccess} shopId={shops.shop.shopId} defaultItem={productItem}/> 
             </Modal>
             <div className="card product-card">
                 <div className="image-container">
@@ -74,18 +75,29 @@ const ProductItem = (props: any) => {
                             prefix={'₫'}
                         />
                     </div> 
-                    <span className="buy" title="Thêm vào giỏ hàng">
-                        <button className="btn btn-outline-danger">
-                        <i className="fa fa-cart-plus"></i>
-                        </button>
-                    </span>
+                    {
+                        isShowAddCart? 
+                        <span className="buy" title="Thêm vào giỏ hàng">
+                            <button className="btn btn-outline-danger">
+                            <i className="fa fa-cart-plus"></i>
+                            </button>
+                        </span> : ''
+                    }
+                    
                     {
                         isEnableEditItem ? 
-                        <span className="edit" title="Chỉnh sửa sản phẩm">
-                            <button className="btn btn-outline-danger" onClick={() => setIsModalVisible(true)}>
-                                <i className="fa fa fa-pen"></i>
-                            </button>
-                        </span>
+                        <>
+                            {/* <span className="edit" title="Xóa">
+                                <button className="btn btn-outline-primary" onClick={() => setIsModalVisible(true)}>
+                                    <i className="fa fa fa-trash"></i>
+                                </button>
+                            </span> */}
+                            <span className="edit" title="Chỉnh sửa sản phẩm">
+                                <button className="btn btn-outline-primary" onClick={() => setIsModalVisible(true)}>
+                                    <i className="fa fa fa-pen"></i>
+                                </button>
+                            </span>
+                            </>
                         : ''
                     }
                     </div>

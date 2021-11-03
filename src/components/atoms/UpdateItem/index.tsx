@@ -10,12 +10,12 @@ import { RootState } from 'app/store';
 
 
 const UpdateItem = (props: any) => {
-    const {shopId, itemId, onSaveSuccess} = props;
+    const {shopId, defaultItem, onSaveSuccess} = props;
     const itemState = useSelector((state: RootState) => state.itemReducer);
     
     const [item, setItem] = useState({
         shopId : shopId,
-        itemId: itemId,
+        itemId: defaultItem.itemId,
         name: '',
         price : '',
         image: undefined
@@ -33,9 +33,9 @@ const UpdateItem = (props: any) => {
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             shopId: shopId,
-            itemId: itemId,
-            name: undefined,
-            price: undefined
+            itemId: defaultItem.itemId,
+            name: defaultItem.name,
+            price: defaultItem.price
         },
         mode: 'onChange',
         resolver: yupResolver(schema)

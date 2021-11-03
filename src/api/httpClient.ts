@@ -49,21 +49,21 @@ export class HttpClient {
     }
 
     put<T>(uri: string, data: any): Promise<T> {
-        var postData:any = {};
-        var contentType = ContentType.Json;
-        
+        var postData:any = data;
+        var contentType = ContentType.Json || undefined;
+        var header = {
+            'Content-Type': contentType
+        } || undefined;
         if(data.constructor.name === 'FormData')
         {
-            var contentType = ContentType.FormData;
+            delete header['Content-Type'];
         } else {
             postData = JSON.stringify(data);
         }
         
         return fetch(`${baseUrl}/${uri}`, {
             method: 'PUT',
-            headers: {
-              'Content-Type': contentType
-            },
+            headers: header as HeadersInit,
             body: postData
           }).then((response) => {
             if (!response.ok) {

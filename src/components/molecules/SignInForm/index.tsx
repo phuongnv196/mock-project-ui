@@ -53,7 +53,7 @@ const SignInForm = (props: any) => {
             onLoginSuccess && onLoginSuccess();
        }
 
-       if (shop.shop && shop.shop.shopId) {
+       if (shop.currentShop && shop.currentShop.shopId) {
             onLoginSuccess && onLoginSuccess();
        }
     }, [user, shop]);
