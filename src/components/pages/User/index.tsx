@@ -30,7 +30,7 @@ const User = () => {
             }
             {
                 (shopState.currentShop && shopState.currentShop.shopId) ?
-                <ShopInfo shopId={shopState.currentShop.shopId}/> : ''
+                <ShopInfo shopId={shopState.currentShop.shopId} isShowLogOutButton="true"/> : ''
             }
         </React.Fragment>
     }

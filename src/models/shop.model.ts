@@ -8,7 +8,7 @@ export class ShopModel {
     isActived?: boolean;
     items: Item[] = [];
 
-    constructor(init: Partial<ShopModel>) {
+    constructor(init?: Partial<ShopModel>) {
         Object.assign(this, init);
     }
 }

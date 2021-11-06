@@ -9,7 +9,7 @@ import { getShopById } from "redux/reducers/Shop/shopSlice";
 import { Modal } from 'antd';
 import UpdateItem from "../UpdateItem";
 import { useLocation } from 'react-router';
-
+import { message } from "antd";
 
 const ProductItem = (props: any) => {
 
@@ -18,6 +18,7 @@ const ProductItem = (props: any) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const shops = useSelector((state: RootState) => state.shopReducer);
+    const customer = useSelector((state: RootState) => state.customerReducer);
     const [isEnableEditItem, setIsEnableEditItem] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isShowAddCart, setIsShowAddCart] = useState(true);
@@ -46,13 +47,15 @@ const ProductItem = (props: any) => {
             name.substring(0, 24) + '...' : name);
     }
 
+    const addToCart = () => {
+        if (customer.customer && customer.customer.customerId) {
+            message.success('Đã thêm vào giỏ hàng!');
+        } else {
+            message.error('Vui lòng đăng nhập để tiếp tục!');
+        }
+    }
+
     return (
-        // <div className="product-item">
-        //     <div className="product-image">
-        //         <img src={`data:image/png;base64, ${productItem.image}`} alt="" />
-        //     </div>
-        //     {productItem.name}
-        // </div>
         <div className="col-lg-3 col-md-4 col-sm-4 col-6 product-item mt-2">
             <Modal title="Chỉnh sửa sản phẩm" visible={isModalVisible} onCancel={() => setIsModalVisible(false)} footer={[]}>
                 <UpdateItem onSaveSuccess={onSaveSuccess} shopId={shops.shop.shopId} defaultItem={productItem}/> 
@@ -78,7 +81,7 @@ const ProductItem = (props: any) => {
                     {
                         isShowAddCart? 
                         <span className="buy" title="Thêm vào giỏ hàng">
-                            <button className="btn btn-outline-danger">
+                            <button className="btn btn-outline-danger" onClick={addToCart}>
                             <i className="fa fa-cart-plus"></i>
                             </button>
                         </span> : ''

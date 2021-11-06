@@ -1,32 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from "react-router-dom";
-import { useLocation } from 'react-router';
+import React from 'react';
 import DefaultLayout from "../../templates/DefaultLayout";
-import {RootState} from "../../../app/store";
 import {BrowserView, MobileView} from 'react-device-detect';
 import MobileLayout from 'components/templates/MobileLayout';
 import ShopList from 'components/molecules/ShopList';
-import { getAllShops } from 'redux/reducers/Home/homeSlice';
 import { Carousel } from 'antd';
-import CreateItem from 'components/atoms/CreateItem';
 
 const Home = () => {
-    // let history = useHistory();
-    // let location = useLocation();
-    // const countData = {count: 0};
-    // const onSavePostClicked = async () => {
-    //     history.push("/home");
-    // }
-
-    const shops = useSelector((state: RootState) => state.homeReducer);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getAllShops());
-    }, [])
-
     return (
-        // <CreateItem></CreateItem>
         <React.Fragment>
             <BrowserView>
                 <div className="container">
@@ -40,7 +20,7 @@ const Home = () => {
                             </div>
                         </Carousel>
                         <hr/>
-                        <ShopList shops={shops.shopDataList}></ShopList>
+                        <ShopList></ShopList>
                     </DefaultLayout>
                 </div> 
             </BrowserView>
@@ -55,7 +35,7 @@ const Home = () => {
                         </div>
                     </Carousel>
                     <hr/>
-                    <ShopList shops={shops.shopDataList}></ShopList>
+                    <ShopList></ShopList>
                 </MobileLayout>
             </MobileView>
         </React.Fragment>

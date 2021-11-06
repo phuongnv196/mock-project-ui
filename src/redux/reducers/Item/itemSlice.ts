@@ -45,10 +45,16 @@ const itemSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+    .addCase(createItem.pending, (state) => {
+      state.item = new Item();
+    })
     .addCase(createItem.fulfilled, (state, action) => {
       if (action.payload) {
         state.item = action.payload;
       }
+    })
+    .addCase(updateItem.pending, (state, action) => {
+      state.item = new Item();
     })
     .addCase(updateItem.fulfilled, (state, action) => {
       if (action.payload) {

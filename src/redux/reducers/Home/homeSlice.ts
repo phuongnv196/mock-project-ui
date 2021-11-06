@@ -36,7 +36,10 @@ const homeSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(getAllShops.fulfilled, (state, action) => {
+        builder.addCase(getAllShops.pending, (state) => {
+            state.shopDataList = new Array<ShopModel>();
+        })
+        .addCase(getAllShops.fulfilled, (state, action) => {
           state.shopDataList = action.payload;
         })
         .addCase(getShopById.fulfilled, (state, action) => {
@@ -53,7 +56,6 @@ const homeSlice = createSlice({
                     items: dataItem.items
                 };
             });
-            console.log('shopDataList', shopDataList);
             state.shopDataList = shopDataList;
           })
       },

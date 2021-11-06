@@ -2,21 +2,26 @@ import { ShopModel } from 'models/shop.model';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import { useEffect } from 'react';
-import { getShopById } from 'redux/reducers/Shop/shopSlice';
-import { useLocation } from 'react-router-dom';
+import { getShopById, shopLogOut } from 'redux/reducers/Shop/shopSlice';
+import { useHistory } from 'react-router-dom';
 import queryString from 'query-string';
 
 import './index.scss';
 
 const ShopInfo = (props: any) => {
-    const {shopId} = props; 
-    const location = useLocation();
+    const {shopId, isShowLogOutButton} = props; 
     const dispatch = useDispatch();
+    const history = useHistory();
     const shops = useSelector((state: RootState) => state.shopReducer);
 
     useEffect(() => {
         dispatch(getShopById(shopId));
     }, []);
+
+    const handleClickLogOut = () => {
+        dispatch(shopLogOut());
+        history.push('/');
+    }
 
     return (
         <div className="card">
@@ -24,6 +29,7 @@ const ShopInfo = (props: any) => {
                 <h5 className="card-title">
                     <img className="shop-avatar" src={shops.shop.image ? `data:image/png;base64, ${shops.shop.image}` : '/images/no-image.jpg'}/>
                     <span className="shop-name">{shops.shop.name}</span>
+                    { isShowLogOutButton && <button className="btn btn-primary " style={{float: 'right'}} onClick={handleClickLogOut}>Đăng xuất</button>}
                 </h5>
                 <p className="card-text">
                     <label>Số điện thoại: </label> {shops.shop.phoneNumber}

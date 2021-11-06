@@ -61,10 +61,17 @@ const shopSlice = createSlice({
         pushItem(state, action) {
             console.log('add Item', action.payload);
             state.shop.items.push(new Item(action.payload));
+        },
+        shopLogOut(state) {
+            state.currentShop = new ShopModel();
+            localStorage.removeItem('shopData');
         }
     },
     extraReducers: (builder) => {
         builder
+        .addCase(getShopById.pending, (state) => {
+            state.shop = new ShopModel();
+          })
         .addCase(getShopById.fulfilled, (state, action) => {
             state.shop = action.payload;
           })
@@ -73,15 +80,18 @@ const shopSlice = createSlice({
                 state.shop = action.payload;
             }
         })
+        .addCase(shopLogin.pending, (state) => {
+            state.currentShop = new ShopModel();
+        })
         .addCase(shopLogin.fulfilled, (state, action) => {
             if (action.payload) {
-                state.shop = action.payload;
+                state.currentShop = action.payload;
             }
         })
       },
 })
 
 const { actions, reducer } = shopSlice;
-const { pushItem } = actions;
-export { getShopById, createShop, shopLogin, pushItem};
+const { pushItem, shopLogOut } = actions;
+export { getShopById, createShop, shopLogin, pushItem, shopLogOut};
 export default reducer

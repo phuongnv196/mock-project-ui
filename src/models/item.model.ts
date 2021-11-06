@@ -6,7 +6,7 @@ export class Item {
     isActive?: boolean;
     shopId?: string;
 
-    constructor(init: Partial<Item>) {
+    constructor(init?: Partial<Item>) {
         Object.assign(this, init);
     }
 }

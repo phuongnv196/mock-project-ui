@@ -43,11 +43,19 @@ const customerSlice = createSlice({
         customer: new CustomerModel(JSON.parse(localStorage.getItem('userData') || '{}'))
     },
     reducers: {
-
+      customerLogOut(state) {
+        state.customer = new CustomerModel();
+        localStorage.removeItem('userData');
+      }
     },
     extraReducers: (builder) => {
-        builder.addCase(createCustomer.fulfilled, (state, action) => {
+        builder
+        .addCase(createCustomer.fulfilled, (state, action) => {
             
+        })
+        .addCase(login.pending, (state) => {
+          state.customerId = '';
+          state.customer = new CustomerModel();
         })
         .addCase(login.fulfilled, (state, action) => {
             if (action.payload) {
@@ -60,5 +68,6 @@ const customerSlice = createSlice({
 })
 
 const { actions, reducer } = customerSlice;
-export {createCustomer, login};
+const { customerLogOut } = actions;
+export {createCustomer, login, customerLogOut};
 export default reducer

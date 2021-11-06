@@ -3,21 +3,16 @@ export const ContentType = {
     FormData: 'multipart/form-data'
 }
 
-const baseUrl: string = process.env.BASE_URL || "https://mock-shop.azurewebsites.net/api";
+const baseUrl: string = process.env.REACT_APP_BASE_URL || "";
 export class HttpClient {
 
     get<T>(uri: string): Promise<T> {
-        console.log(baseUrl);
         return fetch(`${baseUrl}/${uri}`).then((response) => {
-            console.log(response);
             if (!response.ok) {
-                console.log(response.statusText);
                 throw new Error(`${response.statusText} ${response.text()}`);
             }
-            return response.json() as Promise<T>;
+            return response.json() as Promise<T>;  \
         }).catch((error) => {
-            debugger;
-            console.log(error);
             throw new Error(`${error.statusText} ${error.text()}`);
         });
     }
