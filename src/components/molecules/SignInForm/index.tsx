@@ -19,7 +19,7 @@ const SignInForm = (props: any) => {
     const user = useSelector((state: RootState) => state.customerReducer);
     const shop = useSelector((state: RootState) => state.shopReducer);
 
-    const [isShop, setIsShop] = useState(false); 
+    const [isShop, setIsShop] = useState(false);
 
     const schema = yup.object().shape({
         phoneNumber: yup.string()
@@ -49,13 +49,13 @@ const SignInForm = (props: any) => {
     }
 
     useEffect(() => {
-       if (user.customer && user.customer.customerId) {
+        if (user.customer && user.customer.customerId) {
             onLoginSuccess && onLoginSuccess();
-       }
+        }
 
-       if (shop.currentShop && shop.currentShop.shopId) {
+        if (shop.currentShop && shop.currentShop.shopId) {
             onLoginSuccess && onLoginSuccess();
-       }
+        }
     }, [user, shop]);
 
     return (
@@ -81,11 +81,11 @@ const SignInForm = (props: any) => {
                                             <div className="mb-3">
                                                 <label className="form-label">Số điện thoại</label>
                                                 <input {...register('phoneNumber' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập số điện thoại" />
-                                                <span className="text-danger">{ errors.phoneNumber && (errors.phoneNumber as any).message }</span>
+                                                <span className="text-danger">{errors.phoneNumber && (errors.phoneNumber as any).message}</span>
                                             </div>
                                             <div>
                                                 <label className="form-check">
-                                                    <input onChange={handleChangeIsShop} className="form-check-input" type="checkbox"/>
+                                                    <input onChange={handleChangeIsShop} className="form-check-input" type="checkbox" />
                                                     <span className="form-check-label">
                                                         Đăng nhập với tư cách shop?
                                                     </span>
@@ -103,7 +103,7 @@ const SignInForm = (props: any) => {
                     </div>
                 </div>
             </div>
-	    </main>
+        </main>
     )
 }
 

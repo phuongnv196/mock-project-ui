@@ -7,13 +7,13 @@ const ProductList = (props: any) => {
 
 
     return (
-        !products || products.length == 0?
-        <div>Không có sản phẩm nào</div>: 
-        <div className="product-list row">
-        {
-            products.map((product: Item) => <ProductItem key={product.itemId} product={product}></ProductItem>)
-        }
-        </div>
+        !products || products.length == 0 ?
+            <div>Không có sản phẩm nào</div> :
+            <div className="product-list row">
+                {
+                    products.map((product: Item) => <ProductItem key={product.itemId} product={product}></ProductItem>)
+                }
+            </div>
     )
 }
 

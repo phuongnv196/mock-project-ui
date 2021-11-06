@@ -58,51 +58,51 @@ const ProductItem = (props: any) => {
     return (
         <div className="col-lg-3 col-md-4 col-sm-4 col-6 product-item mt-2">
             <Modal title="Chỉnh sửa sản phẩm" visible={isModalVisible} onCancel={() => setIsModalVisible(false)} footer={[]}>
-                <UpdateItem onSaveSuccess={onSaveSuccess} shopId={shops.shop.shopId} defaultItem={productItem}/> 
+                <UpdateItem onSaveSuccess={onSaveSuccess} shopId={shops.shop.shopId} defaultItem={productItem} />
             </Modal>
             <div className="card product-card">
                 <div className="image-container">
-                    <img src={productItem.image ? `data:image/png;base64, ${productItem.image}` : '/images/no-image.jpg'} className="img-fluid rounded thumbnail-image"/>
+                    <img src={productItem.image ? `data:image/png;base64, ${productItem.image}` : '/images/no-image.jpg'} className="img-fluid rounded thumbnail-image" />
                 </div>
                 <div className="product-detail-container p-2">
                     <div className="d-flex justify-content-between align-items-center">
                         <h5 className="dress-name" title={productItem.name}>{nameFormated(productItem.name)}</h5>
                     </div>
                     <div className="d-flex justify-content-between align-items-center pt-1">
-                    <div> 
-                        <NumberFormat
-                            value={productItem.price}
-                            className="new-price"
-                            displayType={'text'}
-                            thousandSeparator={true}
-                            prefix={'₫'}
-                        />
-                    </div> 
-                    {
-                        isShowAddCart? 
-                        <span className="buy" title="Thêm vào giỏ hàng">
-                            <button className="btn btn-outline-danger" onClick={addToCart}>
-                            <i className="fa fa-cart-plus"></i>
-                            </button>
-                        </span> : ''
-                    }
-                    
-                    {
-                        isEnableEditItem ? 
-                        <>
-                            {/* <span className="edit" title="Xóa">
+                        <div>
+                            <NumberFormat
+                                value={productItem.price}
+                                className="new-price"
+                                displayType={'text'}
+                                thousandSeparator={true}
+                                prefix={'₫'}
+                            />
+                        </div>
+                        {
+                            isShowAddCart ?
+                                <span className="buy" title="Thêm vào giỏ hàng">
+                                    <button className="btn btn-outline-danger" onClick={addToCart}>
+                                        <i className="fa fa-cart-plus"></i>
+                                    </button>
+                                </span> : ''
+                        }
+
+                        {
+                            isEnableEditItem ?
+                                <>
+                                    {/* <span className="edit" title="Xóa">
                                 <button className="btn btn-outline-primary" onClick={() => setIsModalVisible(true)}>
                                     <i className="fa fa fa-trash"></i>
                                 </button>
                             </span> */}
-                            <span className="edit" title="Chỉnh sửa sản phẩm">
-                                <button className="btn btn-outline-primary" onClick={() => setIsModalVisible(true)}>
-                                    <i className="fa fa fa-pen"></i>
-                                </button>
-                            </span>
-                            </>
-                        : ''
-                    }
+                                    <span className="edit" title="Chỉnh sửa sản phẩm">
+                                        <button className="btn btn-outline-primary" onClick={() => setIsModalVisible(true)}>
+                                            <i className="fa fa fa-pen"></i>
+                                        </button>
+                                    </span>
+                                </>
+                                : ''
+                        }
                     </div>
                 </div>
             </div>

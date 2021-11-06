@@ -6,14 +6,14 @@ import { Item } from 'models/item.model';
 import shopApi from '../../../api/shopApi';
 
 const getShopById = createAsyncThunk(
-'shop/getShopById',
-async (id: string) => {
-    const response = await shopApi.getById(id);
-    if(response) {
-        response.shopId = id;
+    'shop/getShopById',
+    async (id: string) => {
+        const response = await shopApi.getById(id);
+        if (response) {
+            response.shopId = id;
+        }
+        return response;
     }
-    return response;
-}
 );
 
 const createShop = createAsyncThunk(
@@ -69,29 +69,29 @@ const shopSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-        .addCase(getShopById.pending, (state) => {
-            state.shop = new ShopModel();
-          })
-        .addCase(getShopById.fulfilled, (state, action) => {
-            state.shop = action.payload;
-          })
-        .addCase(createShop.fulfilled, (state, action) => {
-            if (action.payload) {
+            .addCase(getShopById.pending, (state) => {
+                state.shop = new ShopModel();
+            })
+            .addCase(getShopById.fulfilled, (state, action) => {
                 state.shop = action.payload;
-            }
-        })
-        .addCase(shopLogin.pending, (state) => {
-            state.currentShop = new ShopModel();
-        })
-        .addCase(shopLogin.fulfilled, (state, action) => {
-            if (action.payload) {
-                state.currentShop = action.payload;
-            }
-        })
-      },
+            })
+            .addCase(createShop.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.shop = action.payload;
+                }
+            })
+            .addCase(shopLogin.pending, (state) => {
+                state.currentShop = new ShopModel();
+            })
+            .addCase(shopLogin.fulfilled, (state, action) => {
+                if (action.payload) {
+                    state.currentShop = action.payload;
+                }
+            })
+    },
 })
 
 const { actions, reducer } = shopSlice;
 const { pushItem, shopLogOut } = actions;
-export { getShopById, createShop, shopLogin, pushItem, shopLogOut};
+export { getShopById, createShop, shopLogin, pushItem, shopLogOut };
 export default reducer

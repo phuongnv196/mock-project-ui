@@ -5,7 +5,7 @@ import SignUpForm from "../../molecules/SignUpForm";
 const SignUp = () => {
     return (
         <MobileLayout isHideFooter="true">
-            <SignUpForm/>
+            <SignUpForm />
         </MobileLayout>
     );
 }

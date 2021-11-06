@@ -1,5 +1,5 @@
 import { Link, useLocation, useHistory } from "react-router-dom";
-import {SignInForm, SignUpForm} from "../../molecules";
+import { SignInForm, SignUpForm } from "../../molecules";
 import './index.scss';
 export const Login = () => {
     const location = useLocation();
@@ -7,7 +7,7 @@ export const Login = () => {
 
     const onLoginSuccess = () => {
         const state = location.state as any;
-        if(state && state.redirect) {
+        if (state && state.redirect) {
             history.push(state.redirect);
         } else {
             history.push('/');
@@ -18,7 +18,7 @@ export const Login = () => {
         <div className="row" >
             <div className="col-md-6 mx-auto p-0">
                 <div className="card">
-                    <SignInForm onLoginSuccess={onLoginSuccess}/>
+                    <SignInForm onLoginSuccess={onLoginSuccess} />
                 </div>
             </div>
         </div>

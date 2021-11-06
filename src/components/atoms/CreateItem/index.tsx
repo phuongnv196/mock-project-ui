@@ -10,14 +10,14 @@ import { RootState } from 'app/store';
 
 
 const CreateItem = (props: any) => {
-    const {shopId, onSaveSuccess} = props;
+    const { shopId, onSaveSuccess } = props;
 
     const itemState = useSelector((state: RootState) => state.itemReducer);
-    
+
     const [item, setItem] = useState({
-        shopId : shopId,
+        shopId: shopId,
         name: '',
-        price : '',
+        price: '',
         image: undefined,
         itemId: ''
     });
@@ -26,9 +26,9 @@ const CreateItem = (props: any) => {
 
     const schema = yup.object().shape({
         name: yup.string()
-        .required("Vui lòng nhập tên."), 
-        price : yup.string()
-        .required("Vui lòng nhập giá.")           
+            .required("Vui lòng nhập tên."),
+        price: yup.string()
+            .required("Vui lòng nhập giá.")
     });
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -44,7 +44,7 @@ const CreateItem = (props: any) => {
     const handleChangeFile = (e: any) => {
         setItem({
             ...item,
-            image: e.target.files && e.target.files.length > 0? e.target.files[0] : undefined
+            image: e.target.files && e.target.files.length > 0 ? e.target.files[0] : undefined
         });
     }
 
@@ -78,12 +78,12 @@ const CreateItem = (props: any) => {
                                             <div className="mb-3">
                                                 <label className="form-label">Tên sản phẩm</label>
                                                 <input {...register('name' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập tên sẩn phẩm" />
-                                                <span className="text-danger">{ errors.name && (errors.name as any).message }</span>
+                                                <span className="text-danger">{errors.name && (errors.name as any).message}</span>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Giá sản phẩm</label>
                                                 <input {...register('price' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập giá sẩn phẩm" />
-                                                <span className="text-danger">{ errors.price && (errors.price as any).message }</span>
+                                                <span className="text-danger">{errors.price && (errors.price as any).message}</span>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Hình ảnh</label>
@@ -100,7 +100,7 @@ const CreateItem = (props: any) => {
                     </div>
                 </div>
             </div>
-	    </main>
+        </main>
     )
 }
 

@@ -9,7 +9,7 @@ import queryString from 'query-string';
 import './index.scss';
 
 const ShopInfo = (props: any) => {
-    const {shopId, isShowLogOutButton} = props; 
+    const { shopId, isShowLogOutButton } = props;
     const dispatch = useDispatch();
     const history = useHistory();
     const shops = useSelector((state: RootState) => state.shopReducer);
@@ -27,9 +27,9 @@ const ShopInfo = (props: any) => {
         <div className="card">
             <div className="card-body">
                 <h5 className="card-title">
-                    <img className="shop-avatar" src={shops.shop.image ? `data:image/png;base64, ${shops.shop.image}` : '/images/no-image.jpg'}/>
+                    <img className="shop-avatar" src={shops.shop.image ? `data:image/png;base64, ${shops.shop.image}` : '/images/no-image.jpg'} />
                     <span className="shop-name">{shops.shop.name}</span>
-                    { isShowLogOutButton && <button className="btn btn-primary " style={{float: 'right'}} onClick={handleClickLogOut}>Đăng xuất</button>}
+                    {isShowLogOutButton && <button className="btn btn-primary " style={{ float: 'right' }} onClick={handleClickLogOut}>Đăng xuất</button>}
                 </h5>
                 <p className="card-text">
                     <label>Số điện thoại: </label> {shops.shop.phoneNumber}

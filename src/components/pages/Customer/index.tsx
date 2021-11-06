@@ -11,7 +11,7 @@ const Customer = (props: any) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if(!(customerState.customer && customerState.customer.customerId)) {
+        if (!(customerState.customer && customerState.customer.customerId)) {
             history.push('/login');
         }
     }, [customerState]);
@@ -26,9 +26,9 @@ const Customer = (props: any) => {
             <div className="card">
                 <div className="card-body">
                     <h5 className="card-title">
-                        <img className="shop-avatar" src={customerState.customer.avatar ? `data:image/png;base64, ${customerState.customer.avatar}` : '/images/no-image.jpg'}/>
+                        <img className="shop-avatar" src={customerState.customer.avatar ? `data:image/png;base64, ${customerState.customer.avatar}` : '/images/no-image.jpg'} />
                         <span className="shop-name">{customerState.customer.name}</span>
-                        { isShowLogOutButton && <button className="btn btn-primary " style={{float: 'right'}} onClick={handleClickLogOut}>Đăng xuất</button> }
+                        {isShowLogOutButton && <button className="btn btn-primary " style={{ float: 'right' }} onClick={handleClickLogOut}>Đăng xuất</button>}
                     </h5>
                     <p className="card-text">
                         <label>Số điện thoại: </label> {customerState.customer.phoneNumber}
@@ -45,7 +45,7 @@ const Customer = (props: any) => {
                 </div>
             </div>
         </React.Fragment>
-       
+
     )
 }
 

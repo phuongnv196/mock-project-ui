@@ -9,9 +9,9 @@ import './index.scss';
 const MobileLayout = (props: any) => {
     const { children, isHideFooter } = props;
     const { Header, Footer, Sider, Content } = Layout;
-    
+
     const [activeMenuButton, setActiveMenuButton] = useState('home');
-    
+
     return (
         <div className="mobile-layout">
             <div className="head-menu">
@@ -24,13 +24,13 @@ const MobileLayout = (props: any) => {
                 {children}
             </div>
             {
-                !isHideFooter ? 
-                <div className="foot-menu">
-                    <ButtonMenu icon="fa-home" path="/">Trang chủ</ButtonMenu>
-                    <ButtonMenu icon="fa-shopping-cart" path="/cart">Giỏ hàng</ButtonMenu>
-                    <ButtonMenu icon="fa-user" path="/user">Người dùng</ButtonMenu>
-                </div>
-                : ''
+                !isHideFooter ?
+                    <div className="foot-menu">
+                        <ButtonMenu icon="fa-home" path="/">Trang chủ</ButtonMenu>
+                        <ButtonMenu icon="fa-shopping-cart" path="/cart">Giỏ hàng</ButtonMenu>
+                        <ButtonMenu icon="fa-user" path="/user">Người dùng</ButtonMenu>
+                    </div>
+                    : ''
             }
         </div>
     )

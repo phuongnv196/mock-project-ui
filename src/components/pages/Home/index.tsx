@@ -1,6 +1,6 @@
 import React from 'react';
 import DefaultLayout from "../../templates/DefaultLayout";
-import {BrowserView, MobileView} from 'react-device-detect';
+import { BrowserView, MobileView } from 'react-device-detect';
 import MobileLayout from 'components/templates/MobileLayout';
 import ShopList from 'components/molecules/ShopList';
 import { Carousel } from 'antd';
@@ -19,10 +19,10 @@ const Home = () => {
                                 <img src="images/samsung2.png" width="100%"></img>
                             </div>
                         </Carousel>
-                        <hr/>
+                        <hr />
                         <ShopList></ShopList>
                     </DefaultLayout>
-                </div> 
+                </div>
             </BrowserView>
             <MobileView>
                 <MobileLayout>
@@ -34,7 +34,7 @@ const Home = () => {
                             <img src="images/samsung2.png" width="100%"></img>
                         </div>
                     </Carousel>
-                    <hr/>
+                    <hr />
                     <ShopList></ShopList>
                 </MobileLayout>
             </MobileView>

@@ -4,6 +4,7 @@ import { HttpClient } from "./httpClient";
 import {UserRegisterModel} from "../models/user-register.model";
 import { serialize } from "object-to-formdata";
 import { CustomerModel } from "models/customer.model";
+import { CartModel } from "models/cart.model";
 
 const httpClient = new HttpClient();
 
@@ -15,9 +16,9 @@ const userApi = {
             shopId: shopId
           });
     },
-    getCartById: async (cartId: string, isGetShop: boolean = false): Promise<any> => {
+    getCartById: async (cartId: string, isGetShop: boolean = false): Promise<CartModel> => {
         const url = `Cart/${cartId}/getShop=${isGetShop}`;
-        return httpClient.get<any>(url);
+        return httpClient.get<CartModel>(url);
     },
     addItem: async (itemId: string, customerId: string, cartId: string): Promise<any> => {
         const url = 'Cart/add/item';
@@ -49,14 +50,7 @@ const userApi = {
             cartId: cartId,
             customerIdToRemoved: customerIdToRemove
           });
-    },
-    async getUser(params: any) {
-        const newParams = { ...params }
-        const accessToken = localStorage.getItem(StorageKeys.access)
-        const url = `users/`;
-        const response = await axiosGet(url);
-        return response
-    },
+    }
 }
 
 export default userApi

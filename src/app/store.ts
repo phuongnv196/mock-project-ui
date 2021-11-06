@@ -1,17 +1,17 @@
 import shopReducer from '../redux/reducers/Shop/shopSlice';
 import homeReducer from '../redux/reducers/Home/homeSlice';
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 import customerReducer from 'redux/reducers/Customer/customerSlice';
 import itemReducer from 'redux/reducers/Item/itemSlice';
 
 const { configureStore, getDefaultMiddleware } = require("@reduxjs/toolkit");
 
 const rootReducer = combineReducers({
-        shopReducer,
-        homeReducer,
-        customerReducer,
-        itemReducer
-    });
+    shopReducer,
+    homeReducer,
+    customerReducer,
+    itemReducer
+});
 
 
 const store = configureStore({

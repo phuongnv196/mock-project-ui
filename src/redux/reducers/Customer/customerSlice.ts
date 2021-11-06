@@ -7,22 +7,22 @@ import { CustomerModel } from 'models/customer.model';
 
 
 const createCustomer = createAsyncThunk(
-    'customer/register',
-    async (user: UserRegisterModel) => {
-      try {
-        const response = await userApi.register(user);
-        if (response.isSuccess) {
-          message.success('Đăng ký thành công!');
-        } else {
-          message.error(response.errorMessage);
-        }
-        return response;
-      } catch (error: any) {
-        message.error(error.message);
-        return null;
+  'customer/register',
+  async (user: UserRegisterModel) => {
+    try {
+      const response = await userApi.register(user);
+      if (response.isSuccess) {
+        message.success('Đăng ký thành công!');
+      } else {
+        message.error(response.errorMessage);
       }
+      return response;
+    } catch (error: any) {
+      message.error(error.message);
+      return null;
     }
-  );
+  }
+);
 
 const login = createAsyncThunk(
   'customer/login',
@@ -37,37 +37,37 @@ const login = createAsyncThunk(
 );
 
 const customerSlice = createSlice({
-    name: 'customer',
-    initialState: {
-        customerId: undefined as any,
-        customer: new CustomerModel(JSON.parse(localStorage.getItem('userData') || '{}'))
-    },
-    reducers: {
-      customerLogOut(state) {
+  name: 'customer',
+  initialState: {
+    customerId: undefined as any,
+    customer: new CustomerModel(JSON.parse(localStorage.getItem('userData') || '{}'))
+  },
+  reducers: {
+    customerLogOut(state) {
+      state.customer = new CustomerModel();
+      localStorage.removeItem('userData');
+    }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(createCustomer.fulfilled, (state, action) => {
+
+      })
+      .addCase(login.pending, (state) => {
+        state.customerId = '';
         state.customer = new CustomerModel();
-        localStorage.removeItem('userData');
-      }
-    },
-    extraReducers: (builder) => {
-        builder
-        .addCase(createCustomer.fulfilled, (state, action) => {
-            
-        })
-        .addCase(login.pending, (state) => {
-          state.customerId = '';
-          state.customer = new CustomerModel();
-        })
-        .addCase(login.fulfilled, (state, action) => {
-            if (action.payload) {
-              var customer = action.payload as CustomerModel;
-              state.customerId = customer.customerId;
-              state.customer = customer;
-            } 
-        })
-      },
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        if (action.payload) {
+          var customer = action.payload as CustomerModel;
+          state.customerId = customer.customerId;
+          state.customer = customer;
+        }
+      })
+  },
 })
 
 const { actions, reducer } = customerSlice;
 const { customerLogOut } = actions;
-export {createCustomer, login, customerLogOut};
+export { createCustomer, login, customerLogOut };
 export default reducer

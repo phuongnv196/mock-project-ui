@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {Controller} from "react-hook-form";
+import { Controller } from "react-hook-form";
 import './index.scss';
 
 InputField.propTypes = {
@@ -13,30 +13,30 @@ InputField.propTypes = {
 
 function InputField(props: any) {
 
-    const {form, name, label, disabled, type, icon} = props
-    const {formState: {errors}} = form
+    const { form, name, label, disabled, type, icon } = props
+    const { formState: { errors } } = form
     const hasError = !!errors[name]
 
     const handleInput = (data: any) => {
         const { value, onChange, field } = data;
-        if(!!icon) {
+        if (!!icon) {
             return (
                 <div className="input-group-icon">
                     <span className="input-icon">
                         <i className={icon}></i>
                     </span>
-                    <input className="form-control form-control-icon" { ...field} type={type}
-                           onChange={({ target: { value } }) => {
-                               onChange(value);
-                           }}/>
+                    <input className="form-control form-control-icon" {...field} type={type}
+                        onChange={({ target: { value } }) => {
+                            onChange(value);
+                        }} />
                 </div>
             )
         }
         return (
-            <input className={ 'form-control ' + (!!icon? 'form-control-icon' : '')} { ...field} type={type}
-                   onChange={({ target: { value } }) => {
-                       onChange(value);
-                   }}/>
+            <input className={'form-control ' + (!!icon ? 'form-control-icon' : '')} {...field} type={type}
+                onChange={({ target: { value } }) => {
+                    onChange(value);
+                }} />
         )
     }
 
@@ -47,7 +47,7 @@ function InputField(props: any) {
                 control={form.control}
                 name={name}
                 render={({ field: { value, onChange, ...field } }) => (
-                    handleInput( { value, onChange, field} )
+                    handleInput({ value, onChange, field })
                 )}
             />
             <span className="required">{errors[name]?.message}</span>

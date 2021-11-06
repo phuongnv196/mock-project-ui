@@ -15,10 +15,10 @@ const User = () => {
     const location = useLocation();
 
     useEffect(() => {
-        if(!(customerState.customer && customerState.customer.customerId) &&
+        if (!(customerState.customer && customerState.customer.customerId) &&
             !(shopState.currentShop && shopState.currentShop.shopId)
         ) {
-            history.push('/login', { redirect: location.pathname});
+            history.push('/login', { redirect: location.pathname });
         }
     });
 
@@ -26,11 +26,11 @@ const User = () => {
         return <React.Fragment>
             {
                 (customerState.customer && customerState.customer.customerId) ?
-                <Customer/> : ''
+                    <Customer /> : ''
             }
             {
                 (shopState.currentShop && shopState.currentShop.shopId) ?
-                <ShopInfo shopId={shopState.currentShop.shopId} isShowLogOutButton="true"/> : ''
+                    <ShopInfo shopId={shopState.currentShop.shopId} isShowLogOutButton="true" /> : ''
             }
         </React.Fragment>
     }
@@ -40,17 +40,17 @@ const User = () => {
             <BrowserView>
                 <div className="container">
                     <DefaultLayout>
-                    {
-                        getUserLayout()
-                    }
+                        {
+                            getUserLayout()
+                        }
                     </DefaultLayout>
-                </div> 
+                </div>
             </BrowserView>
             <MobileView>
                 <MobileLayout>
-                {
-                    getUserLayout()
-                }
+                    {
+                        getUserLayout()
+                    }
                 </MobileLayout>
             </MobileView>
         </React.Fragment>

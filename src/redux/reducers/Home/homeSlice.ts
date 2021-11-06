@@ -5,20 +5,20 @@ import shopApi from '../../../api/shopApi';
 const getAllShops = createAsyncThunk(
     'home/getAllShops',
     async () => {
-      const response = await shopApi.getAll();
-      return response;
+        const response = await shopApi.getAll();
+        return response;
     }
-  );
+);
 
 const getShopById = createAsyncThunk(
-'home/getShopById',
-async (id: string) => {
-    const response = await shopApi.getById(id);
-    if(response) {
-        response.shopId = id;
+    'home/getShopById',
+    async (id: string) => {
+        const response = await shopApi.getById(id);
+        if (response) {
+            response.shopId = id;
+        }
+        return response;
     }
-    return response;
-}
 );
 
 const homeSlice = createSlice({
@@ -27,8 +27,8 @@ const homeSlice = createSlice({
         shopDataList: new Array<ShopModel>(),
     },
     reducers: {
-        getAllShop (state) {
-            var datas = new Array<ShopModel>(); 
+        getAllShop(state) {
+            var datas = new Array<ShopModel>();
             shopApi.getAll().then(data => {
                 datas = data;
             });
@@ -39,29 +39,29 @@ const homeSlice = createSlice({
         builder.addCase(getAllShops.pending, (state) => {
             state.shopDataList = new Array<ShopModel>();
         })
-        .addCase(getAllShops.fulfilled, (state, action) => {
-          state.shopDataList = action.payload;
-        })
-        .addCase(getShopById.fulfilled, (state, action) => {
-            var shopDataList = state.shopDataList.map((item) => {
-                var dataItem = item;
-                if(item.shopId === action.payload.shopId) {
-                    dataItem.items = action.payload.items;
-                } else {
-                    dataItem.items = dataItem.items;
-                }
+            .addCase(getAllShops.fulfilled, (state, action) => {
+                state.shopDataList = action.payload;
+            })
+            .addCase(getShopById.fulfilled, (state, action) => {
+                var shopDataList = state.shopDataList.map((item) => {
+                    var dataItem = item;
+                    if (item.shopId === action.payload.shopId) {
+                        dataItem.items = action.payload.items;
+                    } else {
+                        dataItem.items = dataItem.items;
+                    }
 
-                return {
-                    ...item,
-                    items: dataItem.items
-                };
-            });
-            state.shopDataList = shopDataList;
-          })
-      },
+                    return {
+                        ...item,
+                        items: dataItem.items
+                    };
+                });
+                state.shopDataList = shopDataList;
+            })
+    },
 })
 
 const { actions, reducer } = homeSlice;
 export const { getAllShop } = actions;
-export {getAllShops, getShopById};
+export { getAllShops, getShopById };
 export default reducer

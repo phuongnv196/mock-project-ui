@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Drawer, Menu, Modal } from 'antd';
 import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
 import './index.scss';
@@ -8,10 +8,10 @@ const { SubMenu } = Menu;
 const DefaultLayout = (props: any) => {
 
     const { children } = props;
-    const [ current, setCurrent ] = useState("/");
+    const [current, setCurrent] = useState("/");
     const location = useLocation();
     const history = useHistory();
-    
+
     useEffect(() => {
         setCurrent(location.pathname as string);
     });

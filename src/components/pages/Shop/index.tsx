@@ -42,22 +42,22 @@ const Shop = (props: any) => {
     return (
         <React.Fragment>
             <Modal title="Thêm sản phẩm" visible={isModalVisible} onCancel={() => setIsModalVisible(false)} footer={[]}>
-                <CreateItem onSaveSuccess={onSaveSuccess} shopId={shops.shop.shopId}/> 
+                <CreateItem onSaveSuccess={onSaveSuccess} shopId={shops.shop.shopId} />
             </Modal>
             <BrowserView>
                 <div className="container">
                     <DefaultLayout>
-                        <ShopInfo shopId={search.shopId as string}/>
+                        <ShopInfo shopId={search.shopId as string} />
                         <div className="card mt-2">
                             <div className="card-header product-list-header">
                                 <label className="h5">Danh sách sản phẩm</label>
                                 {
-                                    isEnableAddItem ? 
-                                    <button className="btn btn-success" onClick={() => setIsModalVisible(true)}>
-                                        <i className="fa fa-plus"></i>
-                                        Thêm sản phẩm
-                                    </button>
-                                    : ''
+                                    isEnableAddItem ?
+                                        <button className="btn btn-success" onClick={() => setIsModalVisible(true)}>
+                                            <i className="fa fa-plus"></i>
+                                            Thêm sản phẩm
+                                        </button>
+                                        : ''
                                 }
                             </div>
                             <div className="card-body">
@@ -65,20 +65,20 @@ const Shop = (props: any) => {
                             </div>
                         </div>
                     </DefaultLayout>
-                </div> 
+                </div>
             </BrowserView>
             <MobileView>
                 <MobileLayout>
-                    <ShopInfo shopData={shops}/>
+                    <ShopInfo shopData={shops} />
                     <div className="card mt-2">
                         <div className="card-header product-list-header">
                             <label className="h5">Danh sách sản phẩm</label>
                             {
-                                isEnableAddItem ? 
-                                <button className="btn btn-success" onClick={() => setIsModalVisible(true)}>
-                                    <i className="fa fa-plus"></i>
-                                </button>
-                                : ''
+                                isEnableAddItem ?
+                                    <button className="btn btn-success" onClick={() => setIsModalVisible(true)}>
+                                        <i className="fa fa-plus"></i>
+                                    </button>
+                                    : ''
                             }
                         </div>
                         <div className="card-body">

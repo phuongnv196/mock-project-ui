@@ -26,7 +26,7 @@ const SignUpForm = () => {
             .required("Vui lòng nhập số điện thoại.")
             .matches(/^0+[0-9]{9}$/, 'Định dạng không hợp lệ'),
         name: yup.string()
-        .required("Vui lòng nhập tên.")      
+            .required("Vui lòng nhập tên.")
     });
 
     const { register, handleSubmit, formState: { errors } } = useForm({
@@ -48,8 +48,8 @@ const SignUpForm = () => {
     const handleChangeFile = (e: any) => {
         setUser({
             ...user,
-            avatar: e.target.files && e.target.files.length > 0? e.target.files[0] : undefined,
-            logo: e.target.files && e.target.files.length > 0? e.target.files[0] : undefined
+            avatar: e.target.files && e.target.files.length > 0 ? e.target.files[0] : undefined,
+            logo: e.target.files && e.target.files.length > 0 ? e.target.files[0] : undefined
         });
     }
 
@@ -85,13 +85,13 @@ const SignUpForm = () => {
                                         <form onSubmit={handleSubmit(handleOnSubmit)}>
                                             <div className="mb-3">
                                                 <label className="form-label">Số điện thoại</label>
-                                                <input {...register('phoneNumber' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập số điện thoại"/>
-                                                <span className="text-danger">{ errors.phoneNumber && (errors.phoneNumber as any).message }</span>
+                                                <input {...register('phoneNumber' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập số điện thoại" />
+                                                <span className="text-danger">{errors.phoneNumber && (errors.phoneNumber as any).message}</span>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Tên</label>
                                                 <input {...register('name' as never)} className="form-control form-control-lg" type="text" placeholder="Nhập tên" />
-                                                <span className="text-danger">{ errors.name && (errors.name as any).message }</span>
+                                                <span className="text-danger">{errors.name && (errors.name as any).message}</span>
                                             </div>
                                             <div className="mb-3">
                                                 <label className="form-label">Avatar/Logo</label>
@@ -99,9 +99,9 @@ const SignUpForm = () => {
                                             </div>
                                             <div>
                                                 <label className="form-check">
-                                                    <input className="form-check-input" type="checkbox" onChange={handleChangeIsShop}/>
+                                                    <input className="form-check-input" type="checkbox" onChange={handleChangeIsShop} />
                                                     <span className="form-check-label">
-                                                       Đăng ký với tư cách shop?
+                                                        Đăng ký với tư cách shop?
                                                     </span>
                                                 </label>
                                             </div>
@@ -117,7 +117,7 @@ const SignUpForm = () => {
                     </div>
                 </div>
             </div>
-	    </main>
+        </main>
     )
 }
 

@@ -11,7 +11,7 @@ const Cart = () => {
                     <DefaultLayout>
                         Web Layout
                     </DefaultLayout>
-                </div> 
+                </div>
             </BrowserView>
             <MobileView>
                 <MobileLayout>
