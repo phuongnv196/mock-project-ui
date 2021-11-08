@@ -4,7 +4,7 @@ import Login from './Login';
 import Cart from './Cart';
 import Shop from './Shop';
 import User from './User';
-
+import Order from './Order';
 
 
 export {
@@ -13,5 +13,6 @@ export {
     Login,
     Cart,
     Shop,
-    User
+    User,
+    Order
 }

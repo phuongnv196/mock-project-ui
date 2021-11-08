@@ -1,4 +1,5 @@
 import { CartItemModel } from "./cart-item.model";
+import { ShopModel } from "./shop.model";
 
 export class CartModel {
     cartId?:	string
@@ -6,7 +7,8 @@ export class CartModel {
     orderTime?: Date;
     deliveryTime?: Date;
     deliveryInformation?:	string
-    shopId?:	string
+    shopId?:	string;
+    shop?: ShopModel;
     customerId?: string;
     itemsInCart: Array<CartItemModel> = [];
 

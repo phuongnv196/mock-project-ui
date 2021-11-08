@@ -1,10 +1,14 @@
 import ProductItem from "components/atoms/ProductItem";
 import { Item } from "models/item.model";
+import { useEffect } from "react";
 import './index.scss';
 
 const ProductList = (props: any) => {
     const { products } = props;
 
+    useEffect(() => {
+        console.log(products);
+    }, [products]);
 
     return (
         !products || products.length == 0 ?

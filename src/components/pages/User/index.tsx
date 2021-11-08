@@ -7,6 +7,7 @@ import { BrowserView, MobileView } from 'react-device-detect';
 import DefaultLayout from 'components/templates/DefaultLayout';
 import MobileLayout from 'components/templates/MobileLayout';
 import ShopInfo from 'components/molecules/ShopInfo';
+import ShopOrderList from 'components/organisms/ShopOrderList';
 
 const User = () => {
     const customerState = useSelector((state: RootState) => state.customerReducer);
@@ -30,7 +31,18 @@ const User = () => {
             }
             {
                 (shopState.currentShop && shopState.currentShop.shopId) ?
-                    <ShopInfo shopId={shopState.currentShop.shopId} isShowLogOutButton="true" /> : ''
+                    <>
+                        <ShopInfo shopId={shopState.currentShop.shopId} isShowLogOutButton="true" /> 
+                        <div className="card mt-2">
+                            <div className="card-header">
+                                Danh sách đặt hàng
+                            </div>
+                            <div className="card-body">
+                                <ShopOrderList/>
+                            </div>
+                        </div>
+                    </>
+                    : ''
             }
         </React.Fragment>
     }

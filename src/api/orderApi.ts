@@ -7,7 +7,7 @@ const shopApi =  {
         var url = `Order/${orderId}`;
         return await client.get<any>(url);
     },
-    getById: async (cartId: string, deliveryInformation: string): Promise<any> => {
+    create: async (cartId: string, deliveryInformation: string): Promise<any> => {
         var url = `Order`;
         return await client.post<any>(url, {
             cartId: cartId,
@@ -22,7 +22,7 @@ const shopApi =  {
           });
     },
     changeStatus: async (orderId: string, customerId: string, orderStatus: string, shopId: string): Promise<any> => {
-        var url = `Order/cancel`;
+        var url = `Order/status`;
         return await client.put<any>(url, {
             orderId: orderId,
             orderStatus: orderStatus,

@@ -13,10 +13,10 @@ const Home = () => {
                     <DefaultLayout>
                         <Carousel autoplay>
                             <div>
-                                <img src="images/samsung.jpg" width="100%"></img>
+                                <img src="images/food1.jpg" width="100%" style={{maxHeight: "200px", objectFit: "cover"}}></img>
                             </div>
                             <div>
-                                <img src="images/samsung2.png" width="100%"></img>
+                                <img src="images/food2.jpg" width="100%" style={{maxHeight: "200px", objectFit: "cover"}}></img>
                             </div>
                         </Carousel>
                         <hr />
@@ -28,10 +28,10 @@ const Home = () => {
                 <MobileLayout>
                     <Carousel autoplay>
                         <div>
-                            <img src="images/samsung.jpg" width="100%"></img>
+                            <img src="images/food1.jpg" width="100%" style={{maxHeight: "200px", objectFit: "cover"}}></img>
                         </div>
                         <div>
-                            <img src="images/samsung2.png" width="100%"></img>
+                            <img src="images/food2.jpg" width="100%" style={{maxHeight: "200px", objectFit: "cover"}}></img>
                         </div>
                     </Carousel>
                     <hr />

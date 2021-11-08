@@ -7,6 +7,8 @@ export class CartItemModel {
     itemId?:	string;
     isDeleted:	boolean = false;
     readyToOrder: boolean =  false;
+    customerName?: string;
+    itemName?: string;
 
     constructor(init?: Partial<CartItemModel>) {
         Object.assign(this, init);

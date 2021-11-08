@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import cartApi from 'api/cartApi';
 import { message } from 'antd';
 import { useHistory } from 'react-router';
+import { CartModel } from 'models/cart.model';
 
 const createCustomer = createAsyncThunk(
     'cart/create',
@@ -26,11 +27,14 @@ const createCustomer = createAsyncThunk(
 const customerSlice = createSlice({
     name: 'cart',
     initialState: {
-        customerId: undefined as any,
-        customer: new CustomerModel(JSON.parse(localStorage.getItem('userData') || '{}'))
+        cartIds: new Array<string>()
     },
     reducers: {
-
+        pushCartId(state, action) {
+            if (state.cartIds.indexOf(action.payload) == -1) {
+                state.cartIds.push(action.payload);
+            }
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -41,6 +45,6 @@ const customerSlice = createSlice({
 })
 
 const { actions, reducer } = customerSlice;
-// const { customerLogOut } = actions;
-// export {createCustomer, login, customerLogOut};
+const { pushCartId } = actions;
+export { pushCartId };
 export default reducer

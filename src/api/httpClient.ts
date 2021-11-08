@@ -11,7 +11,7 @@ export class HttpClient {
             if (!response.ok) {
                 throw new Error(`${response.statusText} ${response.text()}`);
             }
-            return response.json() as Promise<T>;  \
+            return response.json() as Promise<T>;
         }).catch((error) => {
             throw new Error(`${error.statusText} ${error.text()}`);
         });
@@ -39,7 +39,11 @@ export class HttpClient {
                 var data = await response.text();
                 throw new Error(`${data || response.statusText}`);
             }
-            return response.json() as Promise<T>;
+            if (response.status == 204) {
+                return {} as Promise<T>;
+            } else {
+                return response.json() as Promise<T>;
+            }
           });
     }
 

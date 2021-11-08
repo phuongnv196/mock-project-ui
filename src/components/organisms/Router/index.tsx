@@ -1,6 +1,6 @@
 import SignUp from 'components/pages/Signup';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { Home, About, Login, Cart, Shop, User } from "../../pages";
+import { Home, About, Login, Cart, Shop, User, Order } from "../../pages";
 
 const Router = () => {
     return (
@@ -12,6 +12,7 @@ const Router = () => {
                 <Route path="/signup"><SignUp /></Route>
                 <Route path="/shop"><Shop /></Route>
                 <Route path="/user"><User /></Route>
+                <Route path="/order"><Order/></Route>
             </Switch>
         </BrowserRouter>
     )

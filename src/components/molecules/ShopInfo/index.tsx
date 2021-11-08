@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import { useEffect } from 'react';
 import { getShopById, shopLogOut } from 'redux/reducers/Shop/shopSlice';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import queryString from 'query-string';
 
 import './index.scss';
@@ -16,7 +16,7 @@ const ShopInfo = (props: any) => {
 
     useEffect(() => {
         dispatch(getShopById(shopId));
-    }, []);
+    }, [shopId]);
 
     const handleClickLogOut = () => {
         dispatch(shopLogOut());
@@ -30,6 +30,12 @@ const ShopInfo = (props: any) => {
                     <img className="shop-avatar" src={shops.shop.image ? `data:image/png;base64, ${shops.shop.image}` : '/images/no-image.jpg'} />
                     <span className="shop-name">{shops.shop.name}</span>
                     {isShowLogOutButton && <button className="btn btn-primary " style={{ float: 'right' }} onClick={handleClickLogOut}>Đăng xuất</button>}
+                    {
+                        isShowLogOutButton &&
+                        <Link to={`/shop?shopId=${shopId}`} style={{ float: 'right', marginRight: "5px" }}>
+                            <button className="btn btn-primary">Quản lý</button>
+                        </Link>
+                    }
                 </h5>
                 <p className="card-text">
                     <label>Số điện thoại: </label> {shops.shop.phoneNumber}

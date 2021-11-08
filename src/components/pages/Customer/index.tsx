@@ -3,6 +3,7 @@ import { RootState } from 'app/store';
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { customerLogOut } from 'redux/reducers/Customer/customerSlice';
+import CustomerOrderList from 'components/organisms/CustomerOrderList';
 
 const Customer = (props: any) => {
     const { isShowLogOutButton } = props;
@@ -28,7 +29,7 @@ const Customer = (props: any) => {
                     <h5 className="card-title">
                         <img className="shop-avatar" src={customerState.customer.avatar ? `data:image/png;base64, ${customerState.customer.avatar}` : '/images/no-image.jpg'} />
                         <span className="shop-name">{customerState.customer.name}</span>
-                        {isShowLogOutButton && <button className="btn btn-primary " style={{ float: 'right' }} onClick={handleClickLogOut}>Đăng xuất</button>}
+                        <button className="btn btn-primary " style={{ float: 'right' }} onClick={handleClickLogOut}>Đăng xuất</button>
                     </h5>
                     <p className="card-text">
                         <label>Số điện thoại: </label> {customerState.customer.phoneNumber}
@@ -40,8 +41,7 @@ const Customer = (props: any) => {
                     Danh sách đặt hàng
                 </div>
                 <div className="card-body">
-                    Không có danh sách đặt hàng
-                    {/* <ProductList products={shops.shop.items || []}></ProductList> */}
+                    <CustomerOrderList/>
                 </div>
             </div>
         </React.Fragment>

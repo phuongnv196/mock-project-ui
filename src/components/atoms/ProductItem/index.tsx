@@ -6,19 +6,24 @@ import queryString from 'query-string';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'app/store';
 import { getShopById } from "redux/reducers/Shop/shopSlice";
+import { pushCartId } from "redux/reducers/Cart/cartSlice";
 import { Modal } from 'antd';
 import UpdateItem from "../UpdateItem";
 import { useLocation } from 'react-router';
 import { message } from "antd";
+import cartApi from 'api/cartApi'
+
 
 const ProductItem = (props: any) => {
-
-    const { product } = props;
+    const { product, cartId } = props;
     const productItem = product as Item;
     const location = useLocation();
     const dispatch = useDispatch();
+
     const shops = useSelector((state: RootState) => state.shopReducer);
     const customer = useSelector((state: RootState) => state.customerReducer);
+    const cartState = useSelector((state: RootState) => state.cartReducer);
+
     const [isEnableEditItem, setIsEnableEditItem] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isShowAddCart, setIsShowAddCart] = useState(true);
@@ -49,7 +54,26 @@ const ProductItem = (props: any) => {
 
     const addToCart = () => {
         if (customer.customer && customer.customer.customerId) {
-            message.success('Đã thêm vào giỏ hàng!');
+            if (search.cartId) {
+                dispatch(pushCartId(search.cartId));
+                cartApi.addItem(productItem.itemId, customer.customer.customerId, search.cartId as string).then((data) => {
+                    message.success('Đã thêm vào giỏ hàng!');
+                });
+            } else {
+                cartApi.create(customer.customer.customerId, productItem.shopId).then((data) => {
+                    if (data.cartId) {
+                        var checkCart = cartState.cartIds.indexOf(data.cartId) == -1;
+                        dispatch(pushCartId(data.cartId));
+                        cartApi.addItem(productItem.itemId, customer.customer.customerId, data.cartId).then((data) => {
+                            message.success('Đã thêm vào giỏ hàng!');
+                            if (checkCart) {
+                                window.open(`/cart?cartId=${data.cartId}`);
+                            }
+                        });
+                    }
+                });
+            }
+            
         } else {
             message.error('Vui lòng đăng nhập để tiếp tục!');
         }
